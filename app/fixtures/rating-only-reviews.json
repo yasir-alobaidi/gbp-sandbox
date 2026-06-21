@@ -1,0 +1,73 @@
+{
+  "scenario": "rating-only-reviews",
+  "description": "Reviews with starRating set but NO comment field. These exist on real Google profiles. A parser that assumes comment is always present will break.",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "Silent Rater Corp",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": [
+      {
+        "name": "locations/200000001",
+        "title": "Silent Raters Location",
+        "storefrontAddress": {
+          "addressLines": ["42 Quiet Road"],
+          "locality": "Portland",
+          "regionCode": "US"
+        },
+        "phoneNumbers": { "primaryPhone": "+15035550001", "additionalPhones": [] },
+        "categories": { "primaryCategory": { "displayName": "Bakery" }, "additionalCategories": [] },
+        "websiteUri": "https://silent.example.com",
+        "openInfo": { "status": "OPEN" },
+        "metadata": { "placeId": "place_silent_001", "mapsUri": "" }
+      }
+    ]
+  },
+  "reviews": {
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": { "displayName": "Henry Walsh", "profilePhotoUrl": "", "isAnonymous": false },
+        "starRating": "FIVE",
+        "createTime": "2026-06-01T09:00:00Z",
+        "updateTime": "2026-06-01T09:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": { "displayName": "Iris Park", "profilePhotoUrl": "", "isAnonymous": false },
+        "starRating": "ONE",
+        "createTime": "2026-06-02T10:00:00Z",
+        "updateTime": "2026-06-02T10:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": { "displayName": "Anonymous", "profilePhotoUrl": "", "isAnonymous": true },
+        "starRating": "THREE",
+        "createTime": "2026-06-03T11:00:00Z",
+        "updateTime": "2026-06-03T11:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": { "displayName": "Jack Murray", "profilePhotoUrl": "", "isAnonymous": false },
+        "starRating": "FOUR",
+        "comment": "This one has a comment — confirms mixed comment/no-comment works.",
+        "createTime": "2026-06-04T12:00:00Z",
+        "updateTime": "2026-06-04T12:00:00Z"
+      }
+    ]
+  },
+  "notification_settings": {}
+}

@@ -1,0 +1,10 @@
+{
+  "scenario": "consent-denied",
+  "description": "Simulates the user clicking Cancel on Google's consent screen. GET /o/oauth2/v2/auth redirects back to redirect_uri with error=access_denied. Confirm your OAuth callback handles this without crashing.",
+  "oauth": { "behavior": "consent-denied" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [],
+  "locations": {},
+  "reviews": {},
+  "notification_settings": {}
+}

@@ -1,0 +1,39 @@
+{
+  "scenario": "zero-quota",
+  "description": "Every resource API call returns 429 RESOURCE_EXHAUSTED regardless of request volume. Mimics a GCP project that has not yet been approved for Business Profile API access (0 QPM quota). Token exchange still succeeds. Use this to confirm the app degrades gracefully if quota is revoked.",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": true },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "Zero Quota Corp",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": [
+      {
+        "name": "locations/200000001",
+        "title": "Zero Quota Location",
+        "storefrontAddress": {
+          "addressLines": ["0 Quota Blvd"],
+          "locality": "Phoenix",
+          "regionCode": "US"
+        },
+        "phoneNumbers": { "primaryPhone": "+16025550001", "additionalPhones": [] },
+        "categories": { "primaryCategory": { "displayName": "Services" }, "additionalCategories": [] },
+        "websiteUri": "https://zeroquota.example.com",
+        "openInfo": { "status": "OPEN" },
+        "metadata": { "placeId": "place_zq_001", "mapsUri": "" }
+      }
+    ]
+  },
+  "reviews": {
+    "200000001": []
+  },
+  "notification_settings": {}
+}

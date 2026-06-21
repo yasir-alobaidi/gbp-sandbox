@@ -1,0 +1,43 @@
+{
+  "scenario": "google-update-notification",
+  "description": "Use with POST /admin/push passing notification_type=GOOGLE_UPDATE. Confirms the webhook handler doesn't assume every push is a NEW_REVIEW event and crashes when it gets a GOOGLE_UPDATE instead.",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "Google Update Corp",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": [
+      {
+        "name": "locations/200000001",
+        "title": "Google Update Test Location",
+        "storefrontAddress": {
+          "addressLines": ["7 Update Ave"],
+          "locality": "Houston",
+          "regionCode": "US"
+        },
+        "phoneNumbers": { "primaryPhone": "+17135550001", "additionalPhones": [] },
+        "categories": { "primaryCategory": { "displayName": "Bar" }, "additionalCategories": [] },
+        "websiteUri": "https://update.example.com",
+        "openInfo": { "status": "OPEN" },
+        "metadata": { "placeId": "place_gu_001", "mapsUri": "" }
+      }
+    ]
+  },
+  "reviews": { "200000001": [] },
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": ["NEW_REVIEW", "UPDATED_REVIEW", "GOOGLE_UPDATE"]
+    }
+  }
+}

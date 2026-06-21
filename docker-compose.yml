@@ -1,0 +1,15 @@
+services:
+  gbp-sandbox:
+    build: .
+    ports:
+      - "${PORT:-8090}:8090"
+    environment:
+      SCENARIO: ${SCENARIO:-default}
+    volumes:
+      - ./app:/app/app
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8090/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s

@@ -1,0 +1,65 @@
+{
+  "scenario": "multi-account",
+  "description": "Two Google accounts under one login (personal + a LOCATION_GROUP). Exercises account-picker logic — not just the single-account happy path.",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "Personal Account",
+      "type": "PERSONAL",
+      "role": "PRIMARY_OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    },
+    {
+      "name": "accounts/100000002",
+      "accountName": "Acme Corp (Business)",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000002"
+    }
+  ],
+  "locations": {
+    "100000001": [],
+    "100000002": [
+      {
+        "name": "locations/200000001",
+        "title": "Acme Corp Main Office",
+        "storefrontAddress": {
+          "addressLines": ["789 Business Blvd"],
+          "locality": "New York",
+          "regionCode": "US"
+        },
+        "phoneNumbers": { "primaryPhone": "+12125550100", "additionalPhones": [] },
+        "categories": { "primaryCategory": { "displayName": "Office" }, "additionalCategories": [] },
+        "websiteUri": "https://acme.example.com",
+        "openInfo": { "status": "OPEN" },
+        "metadata": { "placeId": "place_biz_001", "mapsUri": "https://maps.google.com/?cid=biz001" }
+      }
+    ]
+  },
+  "reviews": {
+    "200000001": [
+      {
+        "name": "accounts/100000002/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": { "displayName": "David Lee", "profilePhotoUrl": "", "isAnonymous": false },
+        "starRating": "FOUR",
+        "comment": "Professional team, great location.",
+        "createTime": "2026-06-10T12:00:00Z",
+        "updateTime": "2026-06-10T12:00:00Z"
+      }
+    ]
+  },
+  "notification_settings": {
+    "100000002": {
+      "name": "accounts/100000002/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": ["NEW_REVIEW", "UPDATED_REVIEW"]
+    }
+  }
+}

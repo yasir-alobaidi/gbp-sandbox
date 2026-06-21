@@ -1,0 +1,54 @@
+{
+  "scenario": "closed-location",
+  "description": "One location is CLOSED_PERMANENTLY. Confirms the import/sync flow handles this gracefully rather than treating it as a normal active location.",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "Mixed Status Corp",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": [
+      {
+        "name": "locations/200000001",
+        "title": "Active Location",
+        "storefrontAddress": {
+          "addressLines": ["100 Open Ave"],
+          "locality": "Seattle",
+          "regionCode": "US"
+        },
+        "phoneNumbers": { "primaryPhone": "+12065550001", "additionalPhones": [] },
+        "categories": { "primaryCategory": { "displayName": "Cafe" }, "additionalCategories": [] },
+        "websiteUri": "https://example.com",
+        "openInfo": { "status": "OPEN" },
+        "metadata": { "placeId": "place_open", "mapsUri": "" }
+      },
+      {
+        "name": "locations/200000099",
+        "title": "Closed Forever Location",
+        "storefrontAddress": {
+          "addressLines": ["999 Closed Blvd"],
+          "locality": "Seattle",
+          "regionCode": "US"
+        },
+        "phoneNumbers": { "primaryPhone": "+12065559999", "additionalPhones": [] },
+        "categories": { "primaryCategory": { "displayName": "Cafe" }, "additionalCategories": [] },
+        "websiteUri": "https://example.com",
+        "openInfo": { "status": "CLOSED_PERMANENTLY" },
+        "metadata": { "placeId": "place_closed", "mapsUri": "" }
+      }
+    ]
+  },
+  "reviews": {
+    "200000001": [],
+    "200000099": []
+  },
+  "notification_settings": {}
+}

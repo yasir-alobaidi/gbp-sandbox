@@ -1,0 +1,22 @@
+{
+  "scenario": "empty-account",
+  "description": "Account exists but has no locations. Exercises the 'no locations to import' branch in the onboarding flow.",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "New Business",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": []
+  },
+  "reviews": {},
+  "notification_settings": {}
+}

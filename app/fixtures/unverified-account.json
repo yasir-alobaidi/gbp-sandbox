@@ -1,0 +1,49 @@
+{
+  "scenario": "unverified-account",
+  "description": "Account has verificationState UNVERIFIED. Both reviews.list and reviews.reply must return 403 per the documented (if not always practically-enforced) constraint. Confirm your app handles this without crashing.",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "Pending Verification Corp",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "UNVERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": [
+      {
+        "name": "locations/200000001",
+        "title": "Pending Verification Location",
+        "storefrontAddress": {
+          "addressLines": ["999 Pending St"],
+          "locality": "Austin",
+          "regionCode": "US"
+        },
+        "phoneNumbers": { "primaryPhone": "+15125550001", "additionalPhones": [] },
+        "categories": { "primaryCategory": { "displayName": "Retail" }, "additionalCategories": [] },
+        "websiteUri": "https://pending.example.com",
+        "openInfo": { "status": "OPEN" },
+        "metadata": { "placeId": "place_unverified", "mapsUri": "" }
+      }
+    ]
+  },
+  "reviews": {
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": { "displayName": "Frank Bloom", "profilePhotoUrl": "", "isAnonymous": false },
+        "starRating": "THREE",
+        "comment": "Hope they get verified soon.",
+        "createTime": "2026-06-12T08:00:00Z",
+        "updateTime": "2026-06-12T08:00:00Z"
+      }
+    ]
+  },
+  "notification_settings": {}
+}

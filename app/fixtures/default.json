@@ -1,0 +1,102 @@
+{
+  "scenario": "default",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "Acme Corp",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": [
+      {
+        "name": "locations/200000001",
+        "title": "Acme Corp Downtown",
+        "storefrontAddress": {
+          "addressLines": ["123 Main St"],
+          "locality": "San Francisco",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+14155551234",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": { "displayName": "Restaurant" },
+          "additionalCategories": []
+        },
+        "websiteUri": "https://acme.example.com",
+        "regularHours": {
+          "periods": [
+            { "openDay": "MONDAY", "openTime": "09:00", "closeDay": "MONDAY", "closeTime": "17:00" },
+            { "openDay": "TUESDAY", "openTime": "09:00", "closeDay": "TUESDAY", "closeTime": "17:00" },
+            { "openDay": "WEDNESDAY", "openTime": "09:00", "closeDay": "WEDNESDAY", "closeTime": "17:00" },
+            { "openDay": "THURSDAY", "openTime": "09:00", "closeDay": "THURSDAY", "closeTime": "17:00" },
+            { "openDay": "FRIDAY", "openTime": "09:00", "closeDay": "FRIDAY", "closeTime": "17:00" }
+          ]
+        },
+        "openInfo": { "status": "OPEN" },
+        "metadata": {
+          "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+          "mapsUri": "https://maps.google.com/?cid=10281119596374313554"
+        }
+      }
+    ]
+  },
+  "reviews": {
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Alice Martin",
+          "profilePhotoUrl": "https://example.com/photos/alice.jpg",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Excellent service and great atmosphere!",
+        "createTime": "2026-05-01T10:00:00Z",
+        "updateTime": "2026-05-01T10:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Bob Chen",
+          "profilePhotoUrl": "https://example.com/photos/bob.jpg",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Decent experience but the wait was longer than expected.",
+        "createTime": "2026-05-15T14:30:00Z",
+        "updateTime": "2026-05-15T14:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Carol Davis",
+          "profilePhotoUrl": "https://example.com/photos/carol.jpg",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Good food, friendly staff. Will return.",
+        "createTime": "2026-06-01T09:00:00Z",
+        "updateTime": "2026-06-01T09:00:00Z"
+      }
+    ]
+  },
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": ["NEW_REVIEW", "UPDATED_REVIEW"]
+    }
+  }
+}

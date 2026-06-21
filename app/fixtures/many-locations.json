@@ -1,0 +1,35 @@
+{
+  "scenario": "many-locations",
+  "description": "12 locations — forces pagination in locations.list (default pageSize=10). Use to stress-test location discovery and import.",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "Mega Chain Corp",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": [
+      { "name": "locations/200000001", "title": "Branch 01", "storefrontAddress": { "addressLines": ["1 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550001", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_01", "mapsUri": "" } },
+      { "name": "locations/200000002", "title": "Branch 02", "storefrontAddress": { "addressLines": ["2 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550002", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_02", "mapsUri": "" } },
+      { "name": "locations/200000003", "title": "Branch 03", "storefrontAddress": { "addressLines": ["3 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550003", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_03", "mapsUri": "" } },
+      { "name": "locations/200000004", "title": "Branch 04", "storefrontAddress": { "addressLines": ["4 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550004", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_04", "mapsUri": "" } },
+      { "name": "locations/200000005", "title": "Branch 05", "storefrontAddress": { "addressLines": ["5 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550005", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_05", "mapsUri": "" } },
+      { "name": "locations/200000006", "title": "Branch 06", "storefrontAddress": { "addressLines": ["6 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550006", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_06", "mapsUri": "" } },
+      { "name": "locations/200000007", "title": "Branch 07", "storefrontAddress": { "addressLines": ["7 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550007", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_07", "mapsUri": "" } },
+      { "name": "locations/200000008", "title": "Branch 08", "storefrontAddress": { "addressLines": ["8 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550008", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_08", "mapsUri": "" } },
+      { "name": "locations/200000009", "title": "Branch 09", "storefrontAddress": { "addressLines": ["9 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550009", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_09", "mapsUri": "" } },
+      { "name": "locations/200000010", "title": "Branch 10", "storefrontAddress": { "addressLines": ["10 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550010", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_10", "mapsUri": "" } },
+      { "name": "locations/200000011", "title": "Branch 11", "storefrontAddress": { "addressLines": ["11 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550011", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_11", "mapsUri": "" } },
+      { "name": "locations/200000012", "title": "Branch 12", "storefrontAddress": { "addressLines": ["12 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550012", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_12", "mapsUri": "" } }
+    ]
+  },
+  "reviews": {},
+  "notification_settings": {}
+}

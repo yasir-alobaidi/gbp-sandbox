@@ -1,0 +1,49 @@
+{
+  "scenario": "rate-limited",
+  "description": "Every 3rd request to each API surface returns 429. Tests that your retry/backoff logic handles transient rate limits correctly. Uses the real QPM thresholds as inspiration — every 3rd request is more aggressive than real limits so tests run fast.",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": true, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "Acme Corp",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": [
+      {
+        "name": "locations/200000001",
+        "title": "Acme Corp Downtown",
+        "storefrontAddress": {
+          "addressLines": ["123 Main St"],
+          "locality": "San Francisco",
+          "regionCode": "US"
+        },
+        "phoneNumbers": { "primaryPhone": "+14155551234", "additionalPhones": [] },
+        "categories": { "primaryCategory": { "displayName": "Restaurant" }, "additionalCategories": [] },
+        "websiteUri": "https://acme.example.com",
+        "openInfo": { "status": "OPEN" },
+        "metadata": { "placeId": "place_001", "mapsUri": "" }
+      }
+    ]
+  },
+  "reviews": {
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": { "displayName": "Nina Scott", "profilePhotoUrl": "", "isAnonymous": false },
+        "starRating": "FOUR",
+        "comment": "Good, keep it up.",
+        "createTime": "2026-06-01T10:00:00Z",
+        "updateTime": "2026-06-01T10:00:00Z"
+      }
+    ]
+  },
+  "notification_settings": {}
+}

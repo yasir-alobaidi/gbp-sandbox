@@ -1,0 +1,41 @@
+{
+  "scenario": "many-reviews",
+  "description": "55 reviews generated automatically — forces two pagination round-trips with pageSize=50. Tests that your app follows nextPageToken correctly and doesn't stop at the first page.",
+  "_auto_generate_reviews": {
+    "account_id": "100000001",
+    "location_id": "200000001",
+    "count": 55
+  },
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "High Volume Corp",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": [
+      {
+        "name": "locations/200000001",
+        "title": "High Volume Location",
+        "storefrontAddress": {
+          "addressLines": ["1 Popular Street"],
+          "locality": "Los Angeles",
+          "regionCode": "US"
+        },
+        "phoneNumbers": { "primaryPhone": "+13235550001", "additionalPhones": [] },
+        "categories": { "primaryCategory": { "displayName": "Restaurant" }, "additionalCategories": [] },
+        "websiteUri": "https://highvolume.example.com",
+        "openInfo": { "status": "OPEN" },
+        "metadata": { "placeId": "place_hv_001", "mapsUri": "" }
+      }
+    ]
+  },
+  "notification_settings": {}
+}

@@ -1,0 +1,55 @@
+{
+  "scenario": "duplicate-notification",
+  "description": "Use with POST /admin/push?duplicate=true. Sends the same messageId twice — Cloud Pub/Sub is at-least-once delivery, never exactly-once. Tests that your webhook handler is idempotent and doesn't double-process a review notification when the same messageId arrives again. This is one of the highest-value test cases: a Celery task that lacks an idempotency key will queue the same work twice.",
+  "oauth": { "behavior": "success" },
+  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "accounts": [
+    {
+      "name": "accounts/100000001",
+      "accountName": "Idempotency Corp",
+      "type": "LOCATION_GROUP",
+      "role": "OWNER",
+      "permissionLevel": "OWNER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000001"
+    }
+  ],
+  "locations": {
+    "100000001": [
+      {
+        "name": "locations/200000001",
+        "title": "Idempotency Test Location",
+        "storefrontAddress": {
+          "addressLines": ["1 Idempotent St"],
+          "locality": "Atlanta",
+          "regionCode": "US"
+        },
+        "phoneNumbers": { "primaryPhone": "+14045550001", "additionalPhones": [] },
+        "categories": { "primaryCategory": { "displayName": "Gym" }, "additionalCategories": [] },
+        "websiteUri": "https://idempotent.example.com",
+        "openInfo": { "status": "OPEN" },
+        "metadata": { "placeId": "place_idem_001", "mapsUri": "" }
+      }
+    ]
+  },
+  "reviews": {
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": { "displayName": "Oscar Reed", "profilePhotoUrl": "", "isAnonymous": false },
+        "starRating": "FIVE",
+        "comment": "Amazing facilities!",
+        "createTime": "2026-06-15T08:00:00Z",
+        "updateTime": "2026-06-15T08:00:00Z"
+      }
+    ]
+  },
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": ["NEW_REVIEW", "UPDATED_REVIEW"]
+    }
+  }
+}
