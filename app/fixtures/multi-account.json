@@ -1,12 +1,17 @@
 {
   "scenario": "multi-account",
-  "description": "Two Google accounts under one login (personal + a LOCATION_GROUP). Exercises account-picker logic — not just the single-account happy path.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "Three Google accounts under one login: a personal account (no locations), a LOCATION_GROUP with 2 retail locations, and a second LOCATION_GROUP for a café chain. Tests full account-picker flow and cross-account review fetching.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Personal Account",
+      "accountName": "Yasir Personal",
       "type": "PERSONAL",
       "role": "PRIMARY_OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -15,12 +20,21 @@
     },
     {
       "name": "accounts/100000002",
-      "accountName": "Acme Corp (Business)",
+      "accountName": "Meridian Retail Group",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
       "verificationState": "VERIFIED",
       "accountNumber": "100000002"
+    },
+    {
+      "name": "accounts/100000003",
+      "accountName": "Crema Coffee Collective",
+      "type": "LOCATION_GROUP",
+      "role": "MANAGER",
+      "permissionLevel": "MEMBER_LEVEL",
+      "verificationState": "VERIFIED",
+      "accountNumber": "100000003"
     }
   ],
   "locations": {
@@ -28,17 +42,260 @@
     "100000002": [
       {
         "name": "locations/200000001",
-        "title": "Acme Corp Main Office",
+        "title": "Meridian Retail — Midtown",
         "storefrontAddress": {
-          "addressLines": ["789 Business Blvd"],
+          "addressLines": [
+            "520 Fifth Ave",
+            "Floor 3"
+          ],
           "locality": "New York",
+          "administrativeArea": "NY",
+          "postalCode": "10036",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+12125550100", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Office" }, "additionalCategories": [] },
-        "websiteUri": "https://acme.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_biz_001", "mapsUri": "https://maps.google.com/?cid=biz001" }
+        "phoneNumbers": {
+          "primaryPhone": "+12125550100",
+          "additionalPhones": [
+            "+12125550101"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Clothing Store"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Fashion Accessories Store"
+            },
+            {
+              "displayName": "Gift Shop"
+            }
+          ]
+        },
+        "websiteUri": "https://meridian.example.com/midtown",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "10:00",
+              "closeDay": "MONDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "10:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "10:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "10:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "10:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "10:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "10:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "21:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJmeridian001",
+          "mapsUri": "https://maps.google.com/?cid=m001"
+        }
+      },
+      {
+        "name": "locations/200000002",
+        "title": "Meridian Retail — SoHo",
+        "storefrontAddress": {
+          "addressLines": [
+            "143 Spring St"
+          ],
+          "locality": "New York",
+          "administrativeArea": "NY",
+          "postalCode": "10012",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+12125550200",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Clothing Store"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Fashion Designer"
+            },
+            {
+              "displayName": "Boutique"
+            }
+          ]
+        },
+        "websiteUri": "https://meridian.example.com/soho",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "11:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "11:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "11:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "11:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "11:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "11:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "11:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJmeridian002",
+          "mapsUri": "https://maps.google.com/?cid=m002"
+        }
+      }
+    ],
+    "100000003": [
+      {
+        "name": "locations/200000003",
+        "title": "Crema Coffee — Williamsburg",
+        "storefrontAddress": {
+          "addressLines": [
+            "189 Bedford Ave"
+          ],
+          "locality": "Brooklyn",
+          "administrativeArea": "NY",
+          "postalCode": "11211",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+17185550001",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Coffee Shop"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Café"
+            },
+            {
+              "displayName": "Bakery"
+            }
+          ]
+        },
+        "websiteUri": "https://crema.example.com",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "19:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJcrema003",
+          "mapsUri": "https://maps.google.com/?cid=crema003"
+        }
       }
     ]
   },
@@ -47,11 +304,224 @@
       {
         "name": "accounts/100000002/locations/200000001/reviews/rev001",
         "reviewId": "rev001",
-        "reviewer": { "displayName": "David Lee", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "David Lee",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
         "starRating": "FOUR",
-        "comment": "Professional team, great location.",
-        "createTime": "2026-06-10T12:00:00Z",
-        "updateTime": "2026-06-10T12:00:00Z"
+        "comment": "Great selection and helpful staff. Found a blazer that fit perfectly off the rack — rare. Midtown location is convenient for a work lunch break shop.",
+        "createTime": "2026-02-10T13:00:00Z",
+        "updateTime": "2026-02-10T13:00:00Z"
+      },
+      {
+        "name": "accounts/100000002/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Emily Chen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The personal styling service is incredible. Spent an hour with a consultant and walked out with a complete capsule wardrobe. Worth every dollar.",
+        "createTime": "2026-03-01T14:30:00Z",
+        "updateTime": "2026-03-01T14:30:00Z",
+        "reviewReply": {
+          "comment": "Thank you Emily! Our styling team loves what they do. Please book in advance — they fill up fast! ✨",
+          "updateTime": "2026-03-01T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000002/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Frank Adams",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Decent range but prices are on the high side for midtown. Found some nice accessories. The changing rooms were clean. Wouldn't make a special trip but convenient if you're in the area.",
+        "createTime": "2026-03-25T15:00:00Z",
+        "updateTime": "2026-03-25T15:00:00Z"
+      },
+      {
+        "name": "accounts/100000002/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Gloria Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The seasonal collection just dropped and it's stunning. Staff let me know which pieces were limited run. Great communication and no pressure to buy. This is how retail should feel.",
+        "createTime": "2026-04-20T12:30:00Z",
+        "updateTime": "2026-04-20T12:30:00Z",
+        "reviewReply": {
+          "comment": "Gloria, our new collection is special — glad you were one of the first to experience it! 🛍️",
+          "updateTime": "2026-04-20T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000002/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Henry Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Went in looking for a specific item I'd seen on their website and was told it was 'display only'. No help offered to order it or find an alternative. Disappointing customer service.",
+        "createTime": "2026-05-08T11:30:00Z",
+        "updateTime": "2026-05-08T11:30:00Z",
+        "reviewReply": {
+          "comment": "Henry, we're sorry about the experience. Our online-to-store sync has improved since then — please give us another chance to help you find what you need.",
+          "updateTime": "2026-05-08T23:59:00Z"
+        }
+      }
+    ],
+    "200000002": [
+      {
+        "name": "accounts/100000002/locations/200000002/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Iris Walker",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The SoHo location is a design lover's dream. Every fixture and display is thoughtfully done. Bought a limited edition piece and felt like I was in a gallery. Staff are knowledgeable and not pushy.",
+        "createTime": "2026-01-30T16:00:00Z",
+        "updateTime": "2026-01-30T16:00:00Z",
+        "reviewReply": {
+          "comment": "Iris, the SoHo store is our creative flagship and we pour a lot of love into it! Thank you for noticing. 🎨",
+          "updateTime": "2026-01-30T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000002/locations/200000002/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Jack Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Love the rotating pop-up space at the back. Always something interesting. Core collection is consistent quality. Prices reflect the location but the quality holds up well.",
+        "createTime": "2026-02-22T14:00:00Z",
+        "updateTime": "2026-02-22T14:00:00Z"
+      },
+      {
+        "name": "accounts/100000002/locations/200000002/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Karen James",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Bought a gift here for my partner and the gift-wrapping service made it something special. They even added a hand-written note at no extra charge. The personal touches really stand out.",
+        "createTime": "2026-03-14T13:30:00Z",
+        "updateTime": "2026-03-14T13:30:00Z",
+        "reviewReply": {
+          "comment": "Karen, gift-giving is special and we want every box to feel like it! Your partner is lucky. 🎁",
+          "updateTime": "2026-03-14T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000002/locations/200000002/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Luis Rivera",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Nice place but very loud music for a retail store — almost had to shout to ask a question. The clothes are good quality though. Would return on an off-peak day.",
+        "createTime": "2026-04-05T15:30:00Z",
+        "updateTime": "2026-04-05T15:30:00Z"
+      }
+    ],
+    "200000003": [
+      {
+        "name": "accounts/100000003/locations/200000003/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Mia Foster",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Best flat white in Williamsburg, full stop. The coffee is sourced directly from small farms and you can taste the difference. Amazing cortado. This is my daily stop.",
+        "createTime": "2026-01-25T08:30:00Z",
+        "updateTime": "2026-01-25T08:30:00Z",
+        "reviewReply": {
+          "comment": "Thanks Mia! Direct-trade sourcing is our passion. We'll save your cortado for you! ☕",
+          "updateTime": "2026-01-25T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000003/locations/200000003/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Noah Clark",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great coffee and the banana bread is exceptional. Gets busy mid-morning but moves fast. Strong wifi — great for remote work. Only downside: no outdoor seating.",
+        "createTime": "2026-02-12T09:15:00Z",
+        "updateTime": "2026-02-12T09:15:00Z"
+      },
+      {
+        "name": "accounts/100000003/locations/200000003/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Olivia Santos",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The baristas actually know my order by now — that's community coffee culture done right. The seasonal lattes are creative (current one has cardamom and rose water — incredible).",
+        "createTime": "2026-03-05T10:00:00Z",
+        "updateTime": "2026-03-05T10:00:00Z",
+        "reviewReply": {
+          "comment": "Olivia, you're part of the Crema family! The cardamom rose latte comes back every spring — we know you'll be first in line. 🌹",
+          "updateTime": "2026-03-05T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000003/locations/200000003/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Paul Johnson",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Coffee was over-extracted and bitter. I mentioned it to the barista and they just said 'that's how it is'. No offer to remake. At specialty coffee prices, that's not acceptable.",
+        "createTime": "2026-04-15T08:45:00Z",
+        "updateTime": "2026-04-15T08:45:00Z",
+        "reviewReply": {
+          "comment": "Paul, we're sorry — that's not our standard. Every cup should be right, and so should the service. Please come back and we'll make it properly for you.",
+          "updateTime": "2026-04-15T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000003/locations/200000003/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Quinn Davis",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Discovered this place by accident and now it's my non-negotiable morning ritual. The owner is often behind the bar chatting with customers. Authentic, community-driven, delicious.",
+        "createTime": "2026-05-10T07:45:00Z",
+        "updateTime": "2026-05-10T07:45:00Z",
+        "reviewReply": {
+          "comment": "Quinn, happy accidents are the best kind! The owner says hi and thank you 🙏",
+          "updateTime": "2026-05-10T23:59:00Z"
+        }
       }
     ]
   },
@@ -59,7 +529,23 @@
     "100000002": {
       "name": "accounts/100000002/notificationSetting",
       "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
-      "notificationTypes": ["NEW_REVIEW", "UPDATED_REVIEW"]
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW",
+        "NEW_QUESTION",
+        "UPDATED_QUESTION",
+        "NEW_MEDIA",
+        "UPDATED_MENU",
+        "UPDATED_LOCATION"
+      ]
+    },
+    "100000003": {
+      "name": "accounts/100000003/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW"
+      ]
     }
   }
 }

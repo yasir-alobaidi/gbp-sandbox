@@ -1,12 +1,17 @@
 {
   "scenario": "already-claimed-location",
-  "description": "A location that appears in discovery but another tenant has already imported. Use two concurrent import attempts against the same location_id to exercise your app's select_for_update concurrency guard. The mock itself doesn't enforce this — the concurrency logic lives in your app's DB layer.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "UrbanEdge Barbershop appears in discovery for two concurrent tenant import flows. Both see the same placeId. Your select_for_update / unique-constraint guard must prevent a double-import. The sandbox doesn't enforce the race — that lives in your DB layer. Rich review data is included so each worker does real work before hitting the conflict.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Acme Corp",
+      "accountName": "UrbanEdge Barbershop Group",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,22 +23,256 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Contested Location",
+        "title": "UrbanEdge Barbershop — Downtown",
         "storefrontAddress": {
-          "addressLines": ["50 Disputed Lane"],
+          "addressLines": [
+            "50 Federal St",
+            "Suite 101"
+          ],
           "locality": "Boston",
+          "administrativeArea": "MA",
+          "postalCode": "02110",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+16175550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Shop" }, "additionalCategories": [] },
-        "websiteUri": "https://contested.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_contested", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+16175550201",
+          "additionalPhones": [
+            "+16175550202"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Barber Shop"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Men's Hair Salon"
+            },
+            {
+              "displayName": "Beard Grooming Service"
+            }
+          ]
+        },
+        "websiteUri": "https://urbanedge.example.com",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "09:00",
+              "closeDay": "MONDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "09:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "09:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "09:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "09:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "09:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "19:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "profile": {
+          "description": "Classic cuts and modern fades in the heart of Downtown Boston. Walk-ins welcome. Appointments preferred."
+        },
+        "metadata": {
+          "placeId": "place_contested_urbanedge",
+          "mapsUri": "https://maps.google.com/?cid=urbanedge001"
+        }
       }
     ]
   },
   "reviews": {
-    "200000001": []
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Aaron Burke",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Best fade I've had in Boston. Marco takes his time and gets every line perfect. Casual vibe, great conversation, never feel rushed.",
+        "createTime": "2026-01-12T11:00:00Z",
+        "updateTime": "2026-01-12T11:00:00Z",
+        "reviewReply": {
+          "comment": "Thanks Aaron! Marco is the heart of this shop. See you in a few weeks! ✂️",
+          "updateTime": "2026-01-12T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Beth Carter",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Came in for a trim and beard shape-up for my partner — he was thrilled. Clean shop, classic barbershop smell, very professional. Booking online was easy.",
+        "createTime": "2026-01-28T13:30:00Z",
+        "updateTime": "2026-01-28T13:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Carlos Diaz",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Third time here, and it gets better every visit. They remembered how I like my taper — without me asking. That's the sign of a great shop.",
+        "createTime": "2026-02-10T10:00:00Z",
+        "updateTime": "2026-02-10T10:00:00Z",
+        "reviewReply": {
+          "comment": "Carlos, your taper is basically muscle memory for us now! See you next month. 💈",
+          "updateTime": "2026-02-10T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Dana Wells",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Good haircut but the wait was long — about 40 mins past my appointment time. The result was worth it but I'd appreciate better time management.",
+        "createTime": "2026-02-24T14:30:00Z",
+        "updateTime": "2026-02-24T14:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Eli Freeman",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Had my son's first haircut here. The barber was incredibly patient with a wiggly 4-year-old. Gave him a little cape and let him hold the comb. He sat perfectly still. Magic.",
+        "createTime": "2026-03-08T09:30:00Z",
+        "updateTime": "2026-03-08T09:30:00Z",
+        "reviewReply": {
+          "comment": "Eli, first haircuts are a big deal and we take them seriously! Bring him back anytime — we're now officially his barbershop. 🧒",
+          "updateTime": "2026-03-08T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Fatima Hassan",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great for a quick clean-up before a big presentation. Staff are efficient when you need it and relaxed when you don't. Always a consistent cut.",
+        "createTime": "2026-03-22T08:30:00Z",
+        "updateTime": "2026-03-22T08:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "George Mills",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Booked a specific barber and when I arrived was told he'd called in sick. No notification sent. The barber who took over was fine but not what I booked for. Communication needs work.",
+        "createTime": "2026-04-05T11:30:00Z",
+        "updateTime": "2026-04-05T11:30:00Z",
+        "reviewReply": {
+          "comment": "George, we apologize — call-outs should trigger an immediate notification to give you the chance to reschedule. We've fixed the booking system to automate this.",
+          "updateTime": "2026-04-05T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Hannah Ross",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The hot towel shave upgrade is worth every penny. 30 minutes of pure luxury in the middle of a stressful workweek. Left feeling completely reset.",
+        "createTime": "2026-04-18T13:00:00Z",
+        "updateTime": "2026-04-18T13:00:00Z",
+        "reviewReply": {
+          "comment": "Hannah, the hot towel shave is our favourite service to give. Glad it hit the spot! Book anytime. ☕",
+          "updateTime": "2026-04-18T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev009",
+        "reviewId": "rev009",
+        "reviewer": {
+          "displayName": "Ian Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev009",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Reliable, friendly, professional. My standard is 'mid fade, textured top' and they nail it every time. Prices have held steady which I appreciate.",
+        "createTime": "2026-05-02T10:00:00Z",
+        "updateTime": "2026-05-02T10:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev010",
+        "reviewId": "rev010",
+        "reviewer": {
+          "displayName": "Julia Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev010",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Walked in on a whim after seeing the line of people outside — usually a great sign. Got a haircut from Marco that was genuinely the best I've had anywhere. Now I understand the line.",
+        "createTime": "2026-05-15T15:30:00Z",
+        "updateTime": "2026-05-15T15:30:00Z",
+        "reviewReply": {
+          "comment": "Julia, the line outside is our best advertisement! Welcome to the regulars club. ✂️",
+          "updateTime": "2026-05-15T23:00:00Z"
+        }
+      }
+    ]
   },
-  "notification_settings": {}
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW"
+      ]
+    }
+  }
 }

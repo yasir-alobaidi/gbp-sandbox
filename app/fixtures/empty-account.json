@@ -1,14 +1,19 @@
 {
   "scenario": "empty-account",
-  "description": "Account exists but has no locations. Exercises the 'no locations to import' branch in the onboarding flow.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "A verified account with zero locations — exercises the 'no locations to import' branch in your onboarding flow. Your UI must handle locations.list returning an empty array without crashing or showing a blank screen. The account itself is realistic (new bakery franchise preparing to open its first location) so UI copy like 'No locations yet — add your first one!' can be tested meaningfully.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "New Business",
+      "accountName": "Flour & Stone Artisan Bakery",
       "type": "LOCATION_GROUP",
-      "role": "OWNER",
+      "role": "PRIMARY_OWNER",
       "permissionLevel": "OWNER_LEVEL",
       "verificationState": "VERIFIED",
       "accountNumber": "100000001"

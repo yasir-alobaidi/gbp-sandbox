@@ -1,12 +1,17 @@
 {
   "scenario": "refresh-revoked",
-  "description": "POST /token with grant_type=refresh_token returns invalid_grant — the user revoked app access from their Google account. This is NOT the same as a generic 401. The correct app response is to send the user through OAuth again, NOT to silently retry.",
-  "oauth": { "behavior": "refresh-revoked" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "POST /token with grant_type=refresh_token returns {'error':'invalid_grant','error_description':'Token has been expired or revoked'}. This is NOT a generic 401 — the user actively revoked app access from their Google account. The correct app response is to invalidate the stored tokens and redirect the user through OAuth again. Silently retrying with the same token will loop forever. Data below is unreachable in this scenario — it exists to make the business realistic for any error message or logging context.",
+  "oauth": {
+    "behavior": "refresh-revoked"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Revoked Corp",
+      "accountName": "MedCore Urgent Care Clinics",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,22 +23,251 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Revoked Corp Main",
+        "title": "MedCore Urgent Care — Brickell",
         "storefrontAddress": {
-          "addressLines": ["1 Revoked Rd"],
+          "addressLines": [
+            "1 SE 3rd Ave",
+            "Suite 100"
+          ],
           "locality": "Miami",
+          "administrativeArea": "FL",
+          "postalCode": "33131",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+13055550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Clinic" }, "additionalCategories": [] },
-        "websiteUri": "https://revoked.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_revoked_001", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+13055552001",
+          "additionalPhones": [
+            "+13055552002"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Urgent Care Center"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Medical Clinic"
+            },
+            {
+              "displayName": "Walk-In Clinic"
+            }
+          ]
+        },
+        "websiteUri": "https://medcore.example.com/brickell",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "08:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "08:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "08:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "08:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "08:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "08:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "08:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJmedcore_brickell",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000002",
+        "title": "MedCore Urgent Care — Wynwood",
+        "storefrontAddress": {
+          "addressLines": [
+            "2200 NW 2nd Ave"
+          ],
+          "locality": "Miami",
+          "administrativeArea": "FL",
+          "postalCode": "33127",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+13055553001",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Urgent Care Center"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Medical Clinic"
+            }
+          ]
+        },
+        "websiteUri": "https://medcore.example.com/wynwood",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "09:00",
+              "closeDay": "MONDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "09:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "09:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "09:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "09:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "21:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "09:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "21:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJmedcore_wynwood",
+          "mapsUri": ""
+        }
       }
     ]
   },
   "reviews": {
-    "200000001": []
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Anna Blake",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Walk-in at 7pm on a weekday — seen in under 20 minutes. Diagnosed and treated a sinus infection and had prescriptions sent to my pharmacy before I even got home. Incredibly efficient.",
+        "createTime": "2026-03-10T19:45:00Z",
+        "updateTime": "2026-03-10T19:45:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Ben Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Clean, modern clinic. The staff are genuinely kind which matters when you're not feeling well. Wait was reasonable for a Monday afternoon walk-in. Good experience overall.",
+        "createTime": "2026-04-02T15:00:00Z",
+        "updateTime": "2026-04-02T15:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Claire Adams",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "X-ray on a twisted ankle done on-site within the visit. Results explained clearly with follow-up instructions. Billed insurance correctly with no surprise charges. Exactly what urgent care should be.",
+        "createTime": "2026-04-20T16:30:00Z",
+        "updateTime": "2026-04-20T16:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Dan Morris",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Competent care but the front desk communication could be better. Was told 20-minute wait, waited 55 minutes without any update. The actual medical care when seen was thorough.",
+        "createTime": "2026-05-08T14:00:00Z",
+        "updateTime": "2026-05-08T14:00:00Z"
+      }
+    ],
+    "200000002": [
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Elena Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Wynwood location is newer and shows it — clean, modern equipment, smart layout. Staff are professional. Great option for the creative district neighborhood.",
+        "createTime": "2026-04-15T11:00:00Z",
+        "updateTime": "2026-04-15T11:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Fred Santos",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Brought my son for a sports injury on a Saturday — no pediatric urgent care alternative nearby. The PA was excellent with a nervous 9-year-old and explained the sprain clearly in terms he understood.",
+        "createTime": "2026-05-25T13:30:00Z",
+        "updateTime": "2026-05-25T13:30:00Z"
+      }
+    ]
   },
   "notification_settings": {}
 }

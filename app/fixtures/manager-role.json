@@ -1,12 +1,17 @@
 {
   "scenario": "manager-role",
-  "description": "Account has role MANAGER instead of OWNER/PRIMARY_OWNER. Exercises any role-gating logic in the consuming app.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "Account has role MANAGER / MEMBER_LEVEL — not PRIMARY_OWNER. Exercises role-gating logic. Two locations with 10 reviews each across a dental practice.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Acme Corp",
+      "accountName": "Bright Smile Dental Partners",
       "type": "LOCATION_GROUP",
       "role": "MANAGER",
       "permissionLevel": "MEMBER_LEVEL",
@@ -18,17 +23,160 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Acme Corp (Manager View)",
+        "title": "Bright Smile Dental — North End",
         "storefrontAddress": {
-          "addressLines": ["123 Main St"],
-          "locality": "San Francisco",
+          "addressLines": [
+            "200 Hanover St",
+            "Suite 4"
+          ],
+          "locality": "Boston",
+          "administrativeArea": "MA",
+          "postalCode": "02113",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+14155551234", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Restaurant" }, "additionalCategories": [] },
-        "websiteUri": "https://acme.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_mgr_001", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+16175550801",
+          "additionalPhones": [
+            "+16175550802"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Dentist"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Dental Clinic"
+            },
+            {
+              "displayName": "Cosmetic Dentist"
+            },
+            {
+              "displayName": "Teeth Whitening Service"
+            }
+          ]
+        },
+        "websiteUri": "https://brightsmile.example.com/northend",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "08:00",
+              "closeDay": "MONDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "08:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "08:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "08:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "08:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "17:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJbrightsmile001",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000002",
+        "title": "Bright Smile Dental — Back Bay",
+        "storefrontAddress": {
+          "addressLines": [
+            "400 Boylston St",
+            "Level 2"
+          ],
+          "locality": "Boston",
+          "administrativeArea": "MA",
+          "postalCode": "02116",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+16175550900",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Dentist"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Orthodontist"
+            },
+            {
+              "displayName": "Dental Implants Provider"
+            }
+          ]
+        },
+        "websiteUri": "https://brightsmile.example.com/backbay",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "09:00",
+              "closeDay": "MONDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "09:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "09:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "09:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "09:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "09:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "18:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJbrightsmile002",
+          "mapsUri": ""
+        }
       }
     ]
   },
@@ -37,11 +185,231 @@
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev001",
         "reviewId": "rev001",
-        "reviewer": { "displayName": "Emily Jones", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Emily Jones",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "First time at the dentist in 4 years (anxiety has kept me away). Dr. Chen was extraordinarily patient and explained every step. No judgment, no rush. First positive dental experience of my adult life.",
+        "createTime": "2026-02-10T11:00:00Z",
+        "updateTime": "2026-02-10T11:00:00Z",
+        "reviewReply": {
+          "comment": "Emily, we're so proud of you for taking that step! Dental anxiety is real and Dr. Chen specializes in exactly this. We'll be here for your next visit, same calm energy. 😊",
+          "updateTime": "2026-02-10T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Frank Harris",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
         "starRating": "FOUR",
-        "comment": "Good experience overall.",
-        "createTime": "2026-06-05T11:00:00Z",
-        "updateTime": "2026-06-05T11:00:00Z"
+        "comment": "Professional and efficient. Cleaning was thorough, hygienist explained everything clearly. Wait time was exactly as estimated. Would have given 5 stars but the parking situation is frustrating.",
+        "createTime": "2026-02-22T10:30:00Z",
+        "updateTime": "2026-02-22T10:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Grace Kelly",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Competent care but bedside manner could be warmer. Felt a bit like an assembly line. The technology is modern and the cleaning was thorough but didn't feel particularly personal.",
+        "createTime": "2026-03-05T09:00:00Z",
+        "updateTime": "2026-03-05T09:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Harold Foster",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Had an emergency crown on a Friday afternoon and they fit me in within 2 hours. The crown itself is the best-fitting I've had in 20 years of dental work. Absolute lifesavers.",
+        "createTime": "2026-03-18T16:00:00Z",
+        "updateTime": "2026-03-18T16:00:00Z",
+        "reviewReply": {
+          "comment": "Harold, dental emergencies don't wait and neither do we! We're so glad we could get you sorted quickly. That crown should last you decades!",
+          "updateTime": "2026-03-18T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Ingrid Larsson",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Switched from my previous dentist of 8 years after a recommendation and I'm glad I did. The hygienist here is much more gentle. Digital X-rays are a nice tech upgrade too.",
+        "createTime": "2026-04-02T10:00:00Z",
+        "updateTime": "2026-04-02T10:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "James Mitchell",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Billing was a mess. Quoted one price, charged another. When I questioned it they said the insurance estimate was 'just an estimate'. Fine, but a $180 difference was a shock. Admin needs to communicate more clearly.",
+        "createTime": "2026-04-20T09:30:00Z",
+        "updateTime": "2026-04-20T09:30:00Z",
+        "reviewReply": {
+          "comment": "James, billing surprises are stressful and we hear you. We've implemented a pre-treatment cost confirmation for all insurance claims. Please contact billing and we'll review your account.",
+          "updateTime": "2026-04-20T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Karen Adams",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Brought my 6-year-old for her first dentist appointment. The team were incredible with her — stickers, a prize at the end, patient explanations. She actually asked when we can go back. Success!",
+        "createTime": "2026-05-08T14:00:00Z",
+        "updateTime": "2026-05-08T14:00:00Z",
+        "reviewReply": {
+          "comment": "Karen, a child who wants to come back to the dentist is the greatest compliment we can receive! We'll have extra stickers ready for her next visit. 🌟",
+          "updateTime": "2026-05-08T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Louis Carter",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Very thorough cleaning and honest assessment. Was told I needed two fillings and they showed me the X-rays to explain why. Appreciated the transparency rather than just scheduling without explanation.",
+        "createTime": "2026-05-25T11:00:00Z",
+        "updateTime": "2026-05-25T11:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev009",
+        "reviewId": "rev009",
+        "reviewer": {
+          "displayName": "Monica Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev009",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Teeth whitening results were dramatic in a good way — 6 shades lighter, still looking natural. Everyone at work noticed without me saying anything. The process was comfortable and the team checked in constantly throughout.",
+        "createTime": "2026-06-08T13:00:00Z",
+        "updateTime": "2026-06-08T13:00:00Z",
+        "reviewReply": {
+          "comment": "Monica, 6 shades! You're glowing! The key is keeping it natural-looking and we're so glad it landed right. Enjoy your new smile! ✨",
+          "updateTime": "2026-06-08T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev010",
+        "reviewId": "rev010",
+        "reviewer": {
+          "displayName": "Nathan Reed",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev010",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "The practice itself is excellent but the appointment system is frustrating. Hard to get a call back when leaving a voicemail. Online booking portal sometimes shows slots that aren't actually available. Fix the tech, quality of care is 5 stars.",
+        "createTime": "2026-06-14T10:00:00Z",
+        "updateTime": "2026-06-14T10:00:00Z",
+        "reviewReply": {
+          "comment": "Nathan, thank you — you're right that the booking experience hasn't matched our care quality. We're migrating to a new scheduling platform in July. Your patience means a lot.",
+          "updateTime": "2026-06-14T23:59:00Z"
+        }
+      }
+    ],
+    "200000002": [
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Olivia Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The Invisalign journey took 14 months and the results are life-changing. Dr. Patel checked in at every step and made two refinement trays at no extra charge when we weren't at 100%. Couldn't be happier.",
+        "createTime": "2026-01-28T12:00:00Z",
+        "updateTime": "2026-01-28T12:00:00Z",
+        "reviewReply": {
+          "comment": "Olivia, 14 months of patience — and a lifetime of results! Dr. Patel is so proud of your progress. You were a fantastic patient. 🦷",
+          "updateTime": "2026-01-28T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Peter Walsh",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Back Bay location is beautifully fitted out and very modern. Implant consultation was thorough with a 3D scan and clear treatment plan. Felt fully informed going into the procedure.",
+        "createTime": "2026-02-15T13:30:00Z",
+        "updateTime": "2026-02-15T13:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Quinn Martinez",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Had 3 implants placed over 6 months. The process was explained in detail at each visit. Pain management was excellent and recovery was faster than predicted. The final result looks completely natural — people don't know they're implants.",
+        "createTime": "2026-03-10T14:00:00Z",
+        "updateTime": "2026-03-10T14:00:00Z",
+        "reviewReply": {
+          "comment": "Quinn, that's exactly what great implants should look like — invisible! Thank you for trusting us with a 6-month journey. Results like yours make our work meaningful. 🙏",
+          "updateTime": "2026-03-10T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Rachel Foster",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Good care but very sales-focused. Every visit seemed to end with a pitch for another service or upgrade. I understand they're a business but it gets old. Actual dental work was solid.",
+        "createTime": "2026-04-05T10:30:00Z",
+        "updateTime": "2026-04-05T10:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Samuel Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Orthodontic consultation was professional and the treatment plan competitive with other quotes I got. Staff are friendly and the location is convenient for downtown workers. Scheduled second appointment already.",
+        "createTime": "2026-04-22T12:00:00Z",
+        "updateTime": "2026-04-22T12:00:00Z"
       }
     ]
   },

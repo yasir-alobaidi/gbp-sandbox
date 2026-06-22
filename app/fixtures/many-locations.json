@@ -1,12 +1,17 @@
 {
   "scenario": "many-locations",
-  "description": "12 locations — forces pagination in locations.list (default pageSize=10). Use to stress-test location discovery and import.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "12 VitaBlend Juice Bar branches across the Chicago metro — forces 2 pagination round-trips at pageSize=10. Branches span downtown, suburbs, and neighborhoods with 2-3 reviews each to test per-location review fetching after pagination.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Mega Chain Corp",
+      "accountName": "VitaBlend Restaurant Group",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -16,20 +21,1439 @@
   ],
   "locations": {
     "100000001": [
-      { "name": "locations/200000001", "title": "Branch 01", "storefrontAddress": { "addressLines": ["1 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550001", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_01", "mapsUri": "" } },
-      { "name": "locations/200000002", "title": "Branch 02", "storefrontAddress": { "addressLines": ["2 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550002", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_02", "mapsUri": "" } },
-      { "name": "locations/200000003", "title": "Branch 03", "storefrontAddress": { "addressLines": ["3 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550003", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_03", "mapsUri": "" } },
-      { "name": "locations/200000004", "title": "Branch 04", "storefrontAddress": { "addressLines": ["4 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550004", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_04", "mapsUri": "" } },
-      { "name": "locations/200000005", "title": "Branch 05", "storefrontAddress": { "addressLines": ["5 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550005", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_05", "mapsUri": "" } },
-      { "name": "locations/200000006", "title": "Branch 06", "storefrontAddress": { "addressLines": ["6 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550006", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_06", "mapsUri": "" } },
-      { "name": "locations/200000007", "title": "Branch 07", "storefrontAddress": { "addressLines": ["7 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550007", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_07", "mapsUri": "" } },
-      { "name": "locations/200000008", "title": "Branch 08", "storefrontAddress": { "addressLines": ["8 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550008", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_08", "mapsUri": "" } },
-      { "name": "locations/200000009", "title": "Branch 09", "storefrontAddress": { "addressLines": ["9 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550009", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_09", "mapsUri": "" } },
-      { "name": "locations/200000010", "title": "Branch 10", "storefrontAddress": { "addressLines": ["10 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550010", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_10", "mapsUri": "" } },
-      { "name": "locations/200000011", "title": "Branch 11", "storefrontAddress": { "addressLines": ["11 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550011", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_11", "mapsUri": "" } },
-      { "name": "locations/200000012", "title": "Branch 12", "storefrontAddress": { "addressLines": ["12 Main St"], "locality": "Chicago", "regionCode": "US" }, "phoneNumbers": { "primaryPhone": "+13125550012", "additionalPhones": [] }, "categories": { "primaryCategory": { "displayName": "Store" }, "additionalCategories": [] }, "websiteUri": "https://mega.example.com", "openInfo": { "status": "OPEN" }, "metadata": { "placeId": "pl_12", "mapsUri": "" } }
+      {
+        "name": "locations/200000001",
+        "title": "VitaBlend Juice Bar — Chicago #01",
+        "storefrontAddress": {
+          "addressLines": [
+            "1 N State St"
+          ],
+          "locality": "Chicago",
+          "administrativeArea": "IL",
+          "postalCode": "60601",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+13125500001",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Juice Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/chicago-01",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_chi_01",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000002",
+        "title": "VitaBlend Juice Bar — Chicago #02",
+        "storefrontAddress": {
+          "addressLines": [
+            "2 W Madison St"
+          ],
+          "locality": "Chicago",
+          "administrativeArea": "IL",
+          "postalCode": "60602",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+13125500002",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Juice Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/chicago-02",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_chi_02",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000003",
+        "title": "VitaBlend Juice Bar — Chicago #03",
+        "storefrontAddress": {
+          "addressLines": [
+            "3 N Wacker Dr"
+          ],
+          "locality": "Chicago",
+          "administrativeArea": "IL",
+          "postalCode": "60603",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+13125500003",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Smoothie Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/chicago-03",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_chi_03",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000004",
+        "title": "VitaBlend Juice Bar — Chicago #04",
+        "storefrontAddress": {
+          "addressLines": [
+            "4 S Michigan Ave"
+          ],
+          "locality": "Chicago",
+          "administrativeArea": "IL",
+          "postalCode": "60604",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+13125500004",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Health Food Restaurant"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/chicago-04",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_chi_04",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000005",
+        "title": "VitaBlend Juice Bar — Naperville #05",
+        "storefrontAddress": {
+          "addressLines": [
+            "5 S Washington St"
+          ],
+          "locality": "Naperville",
+          "administrativeArea": "IL",
+          "postalCode": "60540",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+16305500005",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Juice Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/naperville-05",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_nap_05",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000006",
+        "title": "VitaBlend Juice Bar — Evanston #06",
+        "storefrontAddress": {
+          "addressLines": [
+            "6 Church St"
+          ],
+          "locality": "Evanston",
+          "administrativeArea": "IL",
+          "postalCode": "60201",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+18475500006",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Juice Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/evanston-06",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_eva_06",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000007",
+        "title": "VitaBlend Juice Bar — Oak Park #07",
+        "storefrontAddress": {
+          "addressLines": [
+            "7 Lake St"
+          ],
+          "locality": "Oak Park",
+          "administrativeArea": "IL",
+          "postalCode": "60301",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+17085500007",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Smoothie Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/oakpark-07",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_oak_07",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000008",
+        "title": "VitaBlend Juice Bar — Schaumburg #08",
+        "storefrontAddress": {
+          "addressLines": [
+            "8 Golf Rd"
+          ],
+          "locality": "Schaumburg",
+          "administrativeArea": "IL",
+          "postalCode": "60173",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+18475500008",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Juice Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/schaumburg-08",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_sch_08",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000009",
+        "title": "VitaBlend Juice Bar — Wicker Park #09",
+        "storefrontAddress": {
+          "addressLines": [
+            "9 N Milwaukee Ave"
+          ],
+          "locality": "Wicker Park",
+          "administrativeArea": "IL",
+          "postalCode": "60622",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+17735500009",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Health Food Restaurant"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/wickerpark-09",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_wp_09",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000010",
+        "title": "VitaBlend Juice Bar — Lincoln Park #10",
+        "storefrontAddress": {
+          "addressLines": [
+            "10 N Lincoln Ave"
+          ],
+          "locality": "Lincoln Park",
+          "administrativeArea": "IL",
+          "postalCode": "60614",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+17735500010",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Smoothie Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/lincolnpark-10",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_lp_10",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000011",
+        "title": "VitaBlend Juice Bar — Hyde Park #11",
+        "storefrontAddress": {
+          "addressLines": [
+            "11 E 53rd St"
+          ],
+          "locality": "Hyde Park",
+          "administrativeArea": "IL",
+          "postalCode": "60615",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+17735500011",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Juice Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/hydepark-11",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "08:00",
+              "closeDay": "MONDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "08:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "08:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "08:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "08:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "08:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "18:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_hp_11",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000012",
+        "title": "VitaBlend Juice Bar — River North #12",
+        "storefrontAddress": {
+          "addressLines": [
+            "12 W Grand Ave"
+          ],
+          "locality": "River North",
+          "administrativeArea": "IL",
+          "postalCode": "60654",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+13125500012",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Juice Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Smoothie Bar"
+            },
+            {
+              "displayName": "Health Food Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://vitablend.example.com/rivernorth-12",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "pl_rn_12",
+          "mapsUri": ""
+        }
+      }
     ]
   },
-  "reviews": {},
-  "notification_settings": {}
+  "reviews": {
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Alice Moss",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Best green juice in downtown Chicago. The kale-ginger-pineapple blend is my morning fuel every day. Quick service even during the rush.",
+        "createTime": "2026-02-10T08:00:00Z",
+        "updateTime": "2026-02-10T08:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Brian Cole",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great smoothie options and fast service. The protein bowls are substantial. Only wish they had more seating.",
+        "createTime": "2026-03-05T09:00:00Z",
+        "updateTime": "2026-03-05T09:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Clara Hale",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Juice is fine, line can be long. Staff are friendly. The app for ordering ahead is buggy — took 3 tries to place an order.",
+        "createTime": "2026-04-12T08:30:00Z",
+        "updateTime": "2026-04-12T08:30:00Z"
+      }
+    ],
+    "200000002": [
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Dan West",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The W. Madison location has the friendliest team of all the branches I've visited. The acai bowl is massive and beautiful.",
+        "createTime": "2026-02-20T08:30:00Z",
+        "updateTime": "2026-02-20T08:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Eva Stone",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Consistent quality. Appreciate that ingredients are listed with each menu item. Clean store.",
+        "createTime": "2026-03-18T09:00:00Z",
+        "updateTime": "2026-03-18T09:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Fred Lowe",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Smoothies are good but very sweet — wish there was a way to adjust the sugar. Staff were helpful when I asked about ingredients.",
+        "createTime": "2026-05-02T10:30:00Z",
+        "updateTime": "2026-05-02T10:30:00Z"
+      }
+    ],
+    "200000003": [
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Gina Hart",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Love the Wacker location. Perfect stop before heading into the Loop. The celery lemon ginger shot is a morning habit now.",
+        "createTime": "2026-02-28T07:45:00Z",
+        "updateTime": "2026-02-28T07:45:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Hank West",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "This is my pre-gym ritual. High-quality ingredients, clearly post-workout designed menu options. The BCAA mango smoothie is excellent.",
+        "createTime": "2026-03-22T07:30:00Z",
+        "updateTime": "2026-03-22T07:30:00Z"
+      }
+    ],
+    "200000004": [
+      {
+        "name": "accounts/100000001/locations/200000004/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Ivy Chen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Michigan Ave location is gorgeous. Great place to grab a juice before the Art Institute. Staff are knowledgeable about nutrition.",
+        "createTime": "2026-03-08T11:00:00Z",
+        "updateTime": "2026-03-08T11:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000004/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Jake Ross",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Location is convenient for tourists. Menu is clear and easy to navigate even first time. Good quality.",
+        "createTime": "2026-04-25T12:00:00Z",
+        "updateTime": "2026-04-25T12:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000004/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Kara Liu",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Long wait during the lunch rush and two items were out of stock. Staff didn't mention the outages until after I ordered. Frustrating.",
+        "createTime": "2026-05-20T12:30:00Z",
+        "updateTime": "2026-05-20T12:30:00Z"
+      }
+    ],
+    "200000005": [
+      {
+        "name": "accounts/100000001/locations/200000005/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Leo Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Naperville finally has a VitaBlend and it was worth the wait. Fresh, fast, and the staff are super knowledgeable about the menu. My kids love the banana-strawberry smoothie.",
+        "createTime": "2026-03-15T10:00:00Z",
+        "updateTime": "2026-03-15T10:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000005/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Mia Grant",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great suburban option. Ample parking and spacious seating — nice change from downtown cramped locations. Açaí bowl is the standout.",
+        "createTime": "2026-04-10T11:30:00Z",
+        "updateTime": "2026-04-10T11:30:00Z"
+      }
+    ],
+    "200000006": [
+      {
+        "name": "accounts/100000001/locations/200000006/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Nate Ford",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "The Evanston team clearly knows the Northwestern crowd. Great post-study fuel options and good wifi signal inside.",
+        "createTime": "2026-02-25T13:00:00Z",
+        "updateTime": "2026-02-25T13:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000006/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Olivia Marsh",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Staff remembered my order on my third visit. That's community. The spirulina latte is unusual but delicious.",
+        "createTime": "2026-04-05T08:00:00Z",
+        "updateTime": "2026-04-05T08:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000006/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Pete Green",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Good location but limited parking. Juice quality is consistent. The line can be slow during the Northwestern lunch rush.",
+        "createTime": "2026-05-18T12:15:00Z",
+        "updateTime": "2026-05-18T12:15:00Z"
+      }
+    ],
+    "200000007": [
+      {
+        "name": "accounts/100000001/locations/200000007/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Quincy Lee",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Oak Park gem. The team curates the menu seasonally which I love — shows they care about fresh ingredients. The autumn squash smoothie in fall was remarkable.",
+        "createTime": "2026-03-02T09:30:00Z",
+        "updateTime": "2026-03-02T09:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000007/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Rosa Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Friendly neighborhood vibe. Kids' smoothie menu is a thoughtful touch. The dragon fruit bowl is a work of art.",
+        "createTime": "2026-04-14T10:00:00Z",
+        "updateTime": "2026-04-14T10:00:00Z"
+      }
+    ],
+    "200000008": [
+      {
+        "name": "accounts/100000001/locations/200000008/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Sam Lark",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Standard VitaBlend quality. Schaumburg location is convenient for the suburbs. Nothing stands out but nothing disappoints.",
+        "createTime": "2026-03-25T11:00:00Z",
+        "updateTime": "2026-03-25T11:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000008/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Tara Bell",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great for a quick healthy lunch between meetings. The staff are efficient and the store is always spotless.",
+        "createTime": "2026-05-12T12:00:00Z",
+        "updateTime": "2026-05-12T12:00:00Z"
+      }
+    ],
+    "200000009": [
+      {
+        "name": "accounts/100000001/locations/200000009/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Uma Stone",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Wicker Park location has the best playlist and the best matcha. It's a vibe as much as a juice bar. The chia parfait is exceptional.",
+        "createTime": "2026-02-18T09:00:00Z",
+        "updateTime": "2026-02-18T09:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000009/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Vince Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great post-run stop. Super accommodating with custom orders — swapped spinach for arugula, no problem. Staff are knowledgeable.",
+        "createTime": "2026-04-08T10:30:00Z",
+        "updateTime": "2026-04-08T10:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000009/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Wendy Cruz",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The WP team makes you feel like a regular on your first visit. The mango lassi smoothie is a must.",
+        "createTime": "2026-05-28T11:00:00Z",
+        "updateTime": "2026-05-28T11:00:00Z"
+      }
+    ],
+    "200000010": [
+      {
+        "name": "accounts/100000001/locations/200000010/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Xander Rose",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Lincoln Park is my neighborhood VitaBlend. Reliable daily stop. The detox green is the best in the lineup — light and refreshing.",
+        "createTime": "2026-03-12T08:00:00Z",
+        "updateTime": "2026-03-12T08:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000010/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Yara Holt",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The staff here are genuinely passionate about what they serve. Ended up with a 10-minute chat about cold-press vs centrifugal juicing. Exactly the expertise you want.",
+        "createTime": "2026-04-22T09:30:00Z",
+        "updateTime": "2026-04-22T09:30:00Z"
+      }
+    ],
+    "200000011": [
+      {
+        "name": "accounts/100000001/locations/200000011/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Zoe Walsh",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Hyde Park location closes at 6pm which is too early for an after-work stop. Quality is good when you can get there. Better weekend hours would help.",
+        "createTime": "2026-04-02T17:30:00Z",
+        "updateTime": "2026-04-02T17:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000011/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Aaron Fox",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Love having a healthy option near campus. The student discount (bring your UChicago ID) is a nice perk. Good range of vegan options.",
+        "createTime": "2026-05-05T13:00:00Z",
+        "updateTime": "2026-05-05T13:00:00Z"
+      }
+    ],
+    "200000012": [
+      {
+        "name": "accounts/100000001/locations/200000012/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Beth Lane",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "River North location is stunning — the interior design is the best of all the branches. Huge windows, natural light, great seating. The immunity shot flight is worth every penny.",
+        "createTime": "2026-03-20T10:30:00Z",
+        "updateTime": "2026-03-20T10:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000012/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Chris Webb",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Convenient for gallery-hopping in River North. The tropical blend is refreshing and the açaí bowl presentation is Instagram-worthy.",
+        "createTime": "2026-04-30T11:30:00Z",
+        "updateTime": "2026-04-30T11:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000012/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Dana Mills",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Best juice bar in Chicago, period. Consistent quality across every visit over 6 months of trying the whole menu. The team is top-notch.",
+        "createTime": "2026-06-10T09:00:00Z",
+        "updateTime": "2026-06-10T09:00:00Z"
+      }
+    ]
+  },
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW",
+        "NEW_QUESTION",
+        "UPDATED_QUESTION",
+        "NEW_MEDIA",
+        "UPDATED_MENU",
+        "UPDATED_LOCATION"
+      ]
+    }
+  }
 }

@@ -1,12 +1,17 @@
 {
   "scenario": "zero-quota",
-  "description": "Every resource API call returns 429 RESOURCE_EXHAUSTED regardless of request volume. Mimics a GCP project that has not yet been approved for Business Profile API access (0 QPM quota). Token exchange still succeeds. Use this to confirm the app degrades gracefully if quota is revoked.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": true },
+  "description": "Every resource API call returns 429 RESOURCE_EXHAUSTED regardless of volume — mimics a GCP project with 0 QPM quota (API not yet approved). Token exchange still succeeds. Two locations are present so quota exhaustion triggers on both accounts.list AND locations.list, not just one endpoint. Your app must degrade gracefully: surface a clear 'API access not yet approved' state, not an error page.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": true
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Zero Quota Corp",
+      "accountName": "Apex Solar Solutions",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,22 +23,229 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Zero Quota Location",
+        "title": "Apex Solar Solutions — Phoenix Metro",
         "storefrontAddress": {
-          "addressLines": ["0 Quota Blvd"],
+          "addressLines": [
+            "4200 N Central Ave",
+            "Suite 300"
+          ],
           "locality": "Phoenix",
+          "administrativeArea": "AZ",
+          "postalCode": "85012",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+16025550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Services" }, "additionalCategories": [] },
-        "websiteUri": "https://zeroquota.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_zq_001", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+16025557001",
+          "additionalPhones": [
+            "+16025557002"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Solar Energy Contractor"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Energy Company"
+            },
+            {
+              "displayName": "Electrician"
+            }
+          ]
+        },
+        "websiteUri": "https://apexsolar.example.com/phoenix",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "08:00",
+              "closeDay": "MONDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "08:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "08:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "08:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "08:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "17:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJapex_phoenix",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000002",
+        "title": "Apex Solar Solutions — Scottsdale",
+        "storefrontAddress": {
+          "addressLines": [
+            "7900 E Camelback Rd"
+          ],
+          "locality": "Scottsdale",
+          "administrativeArea": "AZ",
+          "postalCode": "85251",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+14805558001",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Solar Energy Contractor"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Green Energy Supplier"
+            }
+          ]
+        },
+        "websiteUri": "https://apexsolar.example.com/scottsdale",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "08:00",
+              "closeDay": "MONDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "08:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "08:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "08:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "17:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "08:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "17:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJapex_scottsdale",
+          "mapsUri": ""
+        }
       }
     ]
   },
   "reviews": {
-    "200000001": []
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Nina Scott",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "20-panel system installed flawlessly. Crew was on-site for 3 days and left the property cleaner than they found it. First utility bill dropped 87%. Worth every dollar.",
+        "createTime": "2026-04-15T09:00:00Z",
+        "updateTime": "2026-04-15T09:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Omar Lee",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Good installation team and very transparent about timelines. Permitting took longer than estimated (not their fault — city backlog) but they communicated throughout. Highly recommend.",
+        "createTime": "2026-05-01T10:30:00Z",
+        "updateTime": "2026-05-01T10:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Petra Vance",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Battery storage add-on has been a game changer through two summer grid events. Neighbors lost power; we didn't. The monitoring app is excellent.",
+        "createTime": "2026-05-18T11:00:00Z",
+        "updateTime": "2026-05-18T11:00:00Z"
+      }
+    ],
+    "200000002": [
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Quinn Davis",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Scottsdale showroom is well set-up for understanding the product. No-pressure consultation, clear pricing, honest about what ROI to expect. Signed on the same day.",
+        "createTime": "2026-04-22T13:00:00Z",
+        "updateTime": "2026-04-22T13:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Rosa Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Third neighbor to go with Apex on our street now. The referral discount was meaningful and the install team clearly has the neighborhood down to a routine. Excellent company.",
+        "createTime": "2026-05-28T15:00:00Z",
+        "updateTime": "2026-05-28T15:00:00Z"
+      }
+    ]
   },
-  "notification_settings": {}
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW"
+      ]
+    }
+  }
 }

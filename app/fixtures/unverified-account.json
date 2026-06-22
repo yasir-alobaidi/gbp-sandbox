@@ -1,12 +1,17 @@
 {
   "scenario": "unverified-account",
-  "description": "Account has verificationState UNVERIFIED. Both reviews.list and reviews.reply must return 403 per the documented (if not always practically-enforced) constraint. Confirm your app handles this without crashing.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "Account has verificationState=UNVERIFIED. Both reviews.list and reviews.reply must return 403 PERMISSION_DENIED per the GBP API spec. Your app must catch this and surface a clear 'account not yet verified' message rather than showing an empty review list or crashing. 8 reviews are present in fixture data to make the 403 fire against real content — confirming the guard executes before data access, not after a null return.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Pending Verification Corp",
+      "accountName": "Verdant Plant Studio",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,17 +23,82 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Pending Verification Location",
+        "title": "Verdant Plant Studio",
         "storefrontAddress": {
-          "addressLines": ["999 Pending St"],
+          "addressLines": [
+            "2601 S Congress Ave",
+            "Suite A"
+          ],
           "locality": "Austin",
+          "administrativeArea": "TX",
+          "postalCode": "78704",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+15125550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Retail" }, "additionalCategories": [] },
-        "websiteUri": "https://pending.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_unverified", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+15125554001",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Plant Nursery"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Garden Center"
+            },
+            {
+              "displayName": "Florist"
+            }
+          ]
+        },
+        "websiteUri": "https://verdant.example.com",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "TUESDAY",
+              "openTime": "10:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "10:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "10:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "10:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "10:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "10:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "18:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJverdant_austin",
+          "mapsUri": ""
+        }
       }
     ]
   },
@@ -37,11 +107,106 @@
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev001",
         "reviewId": "rev001",
-        "reviewer": { "displayName": "Frank Bloom", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Frank Bloom",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
         "starRating": "THREE",
-        "comment": "Hope they get verified soon.",
-        "createTime": "2026-06-12T08:00:00Z",
-        "updateTime": "2026-06-12T08:00:00Z"
+        "comment": "Hope they get verified soon — lots of potential.",
+        "createTime": "2026-06-01T09:00:00Z",
+        "updateTime": "2026-06-01T09:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Grace Hale",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The selection of rare tropicals here is unlike anything else in Austin. Found a monstera albo and a pink princess philodendron that I've been hunting for months.",
+        "createTime": "2026-06-02T11:00:00Z",
+        "updateTime": "2026-06-02T11:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Harry Burns",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Really knowledgeable staff. Spent 20 minutes helping me choose the right soil and pot for a fiddle leaf fig. No hard sell, just genuine plant love.",
+        "createTime": "2026-06-03T13:00:00Z",
+        "updateTime": "2026-06-03T13:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Iris Lane",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Picked up 6 plants and every single one is thriving 3 weeks later. They clearly care about plant health before sale — no root rot, pest-free, well-watered.",
+        "createTime": "2026-06-04T15:30:00Z",
+        "updateTime": "2026-06-04T15:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Jake Owens",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great workshop space — took the terrarium-building class last weekend and it was excellent. Small group, great instruction, left with something beautiful.",
+        "createTime": "2026-06-05T17:00:00Z",
+        "updateTime": "2026-06-05T17:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Karen Moss",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Bought a plant that turned out to have spider mites. Only noticed 2 days later when they spread to 3 others. Was offered a store credit but no apology.",
+        "createTime": "2026-06-06T10:00:00Z",
+        "updateTime": "2026-06-06T10:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Leo Foster",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The cactus and succulent wall alone is worth the trip. Every shape, size, and color imaginable. Prices are very fair for the South Congress area.",
+        "createTime": "2026-06-07T12:00:00Z",
+        "updateTime": "2026-06-07T12:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Maya Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "My go-to for housewarming gifts. Plants make the best gifts and the staff help you pick something that matches the recipient's care level (i.e., not a fiddle leaf fig for a beginner).",
+        "createTime": "2026-06-08T14:00:00Z",
+        "updateTime": "2026-06-08T14:00:00Z"
       }
     ]
   },

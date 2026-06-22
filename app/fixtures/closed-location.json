@@ -1,12 +1,17 @@
 {
   "scenario": "closed-location",
-  "description": "One location is CLOSED_PERMANENTLY. Confirms the import/sync flow handles this gracefully rather than treating it as a normal active location.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "3 locations with 3 different statuses: OPEN (with 8 reviews), CLOSED_TEMPORARILY (with 2 historical reviews), CLOSED_PERMANENTLY (no new reviews). Confirms import/sync handles all 3 states gracefully.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Mixed Status Corp",
+      "accountName": "Pacific Grounds Coffee Co.",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,37 +23,366 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Active Location",
+        "title": "Pacific Grounds — Capitol Hill",
         "storefrontAddress": {
-          "addressLines": ["100 Open Ave"],
+          "addressLines": [
+            "420 E Pine St"
+          ],
           "locality": "Seattle",
+          "administrativeArea": "WA",
+          "postalCode": "98122",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+12065550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Cafe" }, "additionalCategories": [] },
-        "websiteUri": "https://example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_open", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+12065551100",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Coffee Shop"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Café"
+            },
+            {
+              "displayName": "Specialty Coffee Shop"
+            }
+          ]
+        },
+        "websiteUri": "https://pacificgrounds.example.com",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "06:30",
+              "closeDay": "MONDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "06:30",
+              "closeDay": "TUESDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "06:30",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "06:30",
+              "closeDay": "THURSDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "06:30",
+              "closeDay": "FRIDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "06:30",
+              "closeDay": "SATURDAY",
+              "closeTime": "19:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "06:30",
+              "closeDay": "SUNDAY",
+              "closeTime": "19:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJpg_capitolhill",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000002",
+        "title": "Pacific Grounds — South Lake Union",
+        "storefrontAddress": {
+          "addressLines": [
+            "200 Westlake Ave N"
+          ],
+          "locality": "Seattle",
+          "administrativeArea": "WA",
+          "postalCode": "98109",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+12065552200",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Coffee Shop"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Café"
+            }
+          ]
+        },
+        "websiteUri": "https://pacificgrounds.example.com/slu",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "18:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "CLOSED_TEMPORARILY",
+          "canReopen": true,
+          "openingDate": {
+            "year": 2026,
+            "month": 9,
+            "day": 1
+          }
+        },
+        "metadata": {
+          "placeId": "ChIJpg_slu",
+          "mapsUri": ""
+        }
       },
       {
         "name": "locations/200000099",
-        "title": "Closed Forever Location",
+        "title": "Pacific Grounds — Belltown (Closed)",
         "storefrontAddress": {
-          "addressLines": ["999 Closed Blvd"],
+          "addressLines": [
+            "2219 2nd Ave"
+          ],
           "locality": "Seattle",
+          "administrativeArea": "WA",
+          "postalCode": "98121",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+12065559999", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Cafe" }, "additionalCategories": [] },
-        "websiteUri": "https://example.com",
-        "openInfo": { "status": "CLOSED_PERMANENTLY" },
-        "metadata": { "placeId": "place_closed", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+12065559999",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Coffee Shop"
+          },
+          "additionalCategories": []
+        },
+        "websiteUri": "https://pacificgrounds.example.com",
+        "openInfo": {
+          "status": "CLOSED_PERMANENTLY"
+        },
+        "metadata": {
+          "placeId": "ChIJpg_belltown",
+          "mapsUri": ""
+        }
       }
     ]
   },
   "reviews": {
-    "200000001": [],
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Alice Green",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "My daily stop. The baristas know my name and my order. Consistently excellent espresso and the rotating single-origin pour-overs are a treat. Capitol Hill needed exactly this.",
+        "createTime": "2026-02-05T07:45:00Z",
+        "updateTime": "2026-02-05T07:45:00Z",
+        "reviewReply": {
+          "comment": "Alice, you're part of our morning routine too! ☕ See you tomorrow!",
+          "updateTime": "2026-02-05T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Brian Chen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great coffee and nice neighborhood vibe. Gets busy post-9am but lines move fast. The oat milk latte is consistently good — hard to do well and they nail it.",
+        "createTime": "2026-02-20T08:30:00Z",
+        "updateTime": "2026-02-20T08:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Claire Ross",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Best cold brew in Seattle. The concentration is perfect — most places over-dilute. Grabbed their seasonal lavender latte too and it's become my new weekend obsession.",
+        "createTime": "2026-03-10T10:30:00Z",
+        "updateTime": "2026-03-10T10:30:00Z",
+        "reviewReply": {
+          "comment": "Claire, cold brew concentration is something we obsess over — glad it shows! The lavender latte comes back every spring. 🌸",
+          "updateTime": "2026-03-10T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Dan Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Coffee is good but the music is way too loud for a coffee shop. Hard to have a conversation or concentrate. Dialed up past the point that makes sense for the space.",
+        "createTime": "2026-03-25T14:00:00Z",
+        "updateTime": "2026-03-25T14:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Elena Russo",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Working remotely from here has become a habit. Good wifi, plenty of outlets, and the staff never rush you. The cortado is exceptional.",
+        "createTime": "2026-04-08T10:00:00Z",
+        "updateTime": "2026-04-08T10:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Felix Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Brought my daughter who's learning about coffee culture. The barista spent 10 minutes explaining the difference between processing methods and let her smell the green beans. Educational and delightful.",
+        "createTime": "2026-04-20T11:00:00Z",
+        "updateTime": "2026-04-20T11:00:00Z",
+        "reviewReply": {
+          "comment": "Felix, we love sharing the journey from seed to cup! Sounds like a future barista in the making. 🌱",
+          "updateTime": "2026-04-20T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Gina Adams",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "The pastry selection rivals specialty bakeries. The almond croissant is absolutely buttery and worth the calories. Combined with a flat white — perfect Seattle morning.",
+        "createTime": "2026-05-15T08:00:00Z",
+        "updateTime": "2026-05-15T08:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Harry Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Visited for the first time while apartment hunting in the neighbourhood and now I want to move to Capitol Hill specifically to be close to this coffee shop. That's how good it is.",
+        "createTime": "2026-06-01T09:30:00Z",
+        "updateTime": "2026-06-01T09:30:00Z",
+        "reviewReply": {
+          "comment": "Harry, we take full responsibility for any apartment decisions that bring you to Capitol Hill! The neighbourhood is worth it. 😄",
+          "updateTime": "2026-06-01T23:59:00Z"
+        }
+      }
+    ],
+    "200000002": [
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Isabel Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Before the temporary closure, this was my go-to for tech meetings. Great coffee, professional atmosphere, reliable wifi. Counting down the days until September reopening!",
+        "createTime": "2026-04-12T09:00:00Z",
+        "updateTime": "2026-04-12T09:00:00Z",
+        "reviewReply": {
+          "comment": "Isabel, we miss you too! September can't come fast enough. We're renovating and expanding seating — you'll love the new space. 🔨",
+          "updateTime": "2026-04-12T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Jack Foster",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Good coffee, convenient location for the office. Wish they were open on weekends. Had to switch to Capitol Hill on Saturdays. The SLU location closing temporarily has hurt my routine.",
+        "createTime": "2026-03-05T08:30:00Z",
+        "updateTime": "2026-03-05T08:30:00Z"
+      }
+    ],
     "200000099": []
   },
-  "notification_settings": {}
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW",
+        "NEW_QUESTION",
+        "UPDATED_QUESTION",
+        "NEW_MEDIA",
+        "UPDATED_MENU",
+        "UPDATED_LOCATION"
+      ]
+    }
+  }
 }

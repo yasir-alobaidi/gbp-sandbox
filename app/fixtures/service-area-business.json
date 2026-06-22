@@ -1,12 +1,17 @@
 {
   "scenario": "service-area-business",
-  "description": "A service-area business (plumber, cleaner, etc.) has no storefrontAddress — only regionCode. Confirms your location parser doesn't assume address is always present.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "3 service-area businesses with no storefrontAddress — only serviceArea with regionCode. Tests location parser doesn't assume storefront fields are always present. Businesses: plumbing, HVAC, and landscaping.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Bob's Plumbing Services",
+      "accountName": "ProTrades Home Services Group",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,13 +23,249 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Bob's Plumbing Services",
-        "phoneNumbers": { "primaryPhone": "+17185550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Plumber" }, "additionalCategories": [] },
-        "websiteUri": "https://bobs-plumbing.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_sab_001", "mapsUri": "" },
-        "serviceArea": { "regionCode": "US" }
+        "title": "ProTrades Plumbing",
+        "phoneNumbers": {
+          "primaryPhone": "+17185550001",
+          "additionalPhones": [
+            "+17185550002"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Plumber"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Emergency Plumber"
+            },
+            {
+              "displayName": "Drain Cleaning Service"
+            }
+          ]
+        },
+        "websiteUri": "https://protrades.example.com/plumbing",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "07:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "serviceArea": {
+          "regionCode": "US",
+          "places": {
+            "placeInfos": [
+              {
+                "name": "places/ChIJNewYork",
+                "placeId": "ChIJNewYork"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "placeId": "ChIJprotrades_plumbing",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000002",
+        "title": "ProTrades HVAC & Heating",
+        "phoneNumbers": {
+          "primaryPhone": "+17185550003",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "HVAC Contractor"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Air Conditioning Contractor"
+            },
+            {
+              "displayName": "Heating Contractor"
+            }
+          ]
+        },
+        "websiteUri": "https://protrades.example.com/hvac",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "08:00",
+              "closeDay": "MONDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "08:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "08:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "08:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "08:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "08:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "08:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "18:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "serviceArea": {
+          "regionCode": "US",
+          "places": {
+            "placeInfos": [
+              {
+                "name": "places/ChIJNewYork",
+                "placeId": "ChIJNewYork"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "placeId": "ChIJprotrades_hvac",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000003",
+        "title": "ProTrades Landscaping & Lawn Care",
+        "phoneNumbers": {
+          "primaryPhone": "+17185550004",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Landscaper"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Lawn Care Service"
+            },
+            {
+              "displayName": "Tree Service"
+            }
+          ]
+        },
+        "websiteUri": "https://protrades.example.com/landscaping",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "07:30",
+              "closeDay": "MONDAY",
+              "closeTime": "17:30"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "07:30",
+              "closeDay": "TUESDAY",
+              "closeTime": "17:30"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "07:30",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "17:30"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "07:30",
+              "closeDay": "THURSDAY",
+              "closeTime": "17:30"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "07:30",
+              "closeDay": "FRIDAY",
+              "closeTime": "17:30"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "07:30",
+              "closeDay": "SATURDAY",
+              "closeTime": "17:30"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "serviceArea": {
+          "regionCode": "US"
+        },
+        "metadata": {
+          "placeId": "ChIJprotrades_landscaping",
+          "mapsUri": ""
+        }
       }
     ]
   },
@@ -33,13 +274,278 @@
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev001",
         "reviewId": "rev001",
-        "reviewer": { "displayName": "Grace Taylor", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Grace Taylor",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
         "starRating": "FIVE",
-        "comment": "Fixed our pipes in under an hour. Highly recommend!",
-        "createTime": "2026-06-08T15:00:00Z",
-        "updateTime": "2026-06-08T15:00:00Z"
+        "comment": "Fixed our burst pipe at 11pm on a Wednesday. Didn't upcharge for emergency hours. Technician was clean, fast, and explained exactly what had failed and why. Cannot recommend highly enough.",
+        "createTime": "2026-02-15T23:30:00Z",
+        "updateTime": "2026-02-15T23:30:00Z",
+        "reviewReply": {
+          "comment": "Grace, burst pipes never wait for business hours and neither do we. So glad we could prevent further water damage. Stay warm! 🚿",
+          "updateTime": "2026-02-15T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Harry Ross",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Called about a slow drain and they diagnosed a partial blockage in the main line. The hydro-jetting cleared it completely. Transparent pricing before the job started. Professional team.",
+        "createTime": "2026-03-01T14:00:00Z",
+        "updateTime": "2026-03-01T14:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Iris Adams",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Third time using ProTrades Plumbing and they've never let me down. Water heater replacement was done in 3 hours, they hauled away the old unit, and the new one works perfectly. Loyalty well earned.",
+        "createTime": "2026-03-20T11:00:00Z",
+        "updateTime": "2026-03-20T11:00:00Z",
+        "reviewReply": {
+          "comment": "Iris, three jobs and counting — thank you for the loyalty! Your water heater should last you another decade. ♨️",
+          "updateTime": "2026-03-20T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Jack Williams",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Job was completed but left my bathroom in worse shape than they found it. Grout on the wall, dirty boot prints on the floor, a pipe wrench nick on the baseboard. The work itself was fine but the cleanup was not.",
+        "createTime": "2026-04-05T16:30:00Z",
+        "updateTime": "2026-04-05T16:30:00Z",
+        "reviewReply": {
+          "comment": "Jack, that is absolutely unacceptable — our team should leave every home cleaner than we found it. We'd like to send someone to fix that baseboard. Please contact us directly.",
+          "updateTime": "2026-04-05T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Karen Martinez",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Shower remodel plumbing done perfectly the first time. I've had plumbers make mistakes before that led to leaks months later. These guys used quality fittings and pressure-tested everything before leaving. Proper workmanship.",
+        "createTime": "2026-04-22T13:00:00Z",
+        "updateTime": "2026-04-22T13:00:00Z",
+        "reviewReply": {
+          "comment": "Karen, pressure-testing is non-negotiable for us — it's the only way to be sure. Thank you for recognizing proper craftsmanship! 🔧",
+          "updateTime": "2026-04-22T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Luis Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Responsive and punctual. The job (fixing a running toilet) was straightforward and done correctly. Price felt high for the work involved but I needed it done quickly so I accepted it.",
+        "createTime": "2026-05-10T10:30:00Z",
+        "updateTime": "2026-05-10T10:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Maria Nguyen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Emergency call on a holiday weekend — garbage disposal shredded something and was jammed. They came out within 90 minutes, fixed it, and didn't charge holiday rates. Honest and reliable.",
+        "createTime": "2026-05-26T13:00:00Z",
+        "updateTime": "2026-05-26T13:00:00Z",
+        "reviewReply": {
+          "comment": "Maria, holiday weekends are when you need us most! Standard rates apply all year for us. Enjoy the long weekend! 🎉",
+          "updateTime": "2026-05-26T23:59:00Z"
+        }
+      }
+    ],
+    "200000002": [
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Nathan Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "AC went out during the July heat wave and ProTrades had a technician to us in 4 hours. Diagnosed a failed capacitor, replaced it on the spot, system back up. Lifesavers literally — it was 96 degrees.",
+        "createTime": "2026-05-02T17:30:00Z",
+        "updateTime": "2026-05-02T17:30:00Z",
+        "reviewReply": {
+          "comment": "Nathan, HVAC emergencies in the summer are our busiest time — glad we got to you fast! Stay cool! ❄️",
+          "updateTime": "2026-05-02T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Olivia Chen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Annual HVAC maintenance was thorough. Technician checked everything, replaced filters, found a worn belt I wasn't aware of and replaced it preventively. Fair price for a comprehensive service.",
+        "createTime": "2026-03-15T10:00:00Z",
+        "updateTime": "2026-03-15T10:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Patrick Davis",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "New furnace installation done in one day. The team was meticulous — covered all surfaces, tested every register, programmed the thermostat, and walked me through the warranty registration. Exceptional professionalism.",
+        "createTime": "2026-02-10T15:00:00Z",
+        "updateTime": "2026-02-10T15:00:00Z",
+        "reviewReply": {
+          "comment": "Patrick, furnace days are long days for our crew but getting you through the winter is worth it. Warm house, happy family! 🔥",
+          "updateTime": "2026-02-10T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Quinn Lee",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Responsive company but the technician who came out didn't have the right part and had to reschedule for a second visit. Lost a day of work waiting. Would have preferred better inventory coordination.",
+        "createTime": "2026-04-18T09:00:00Z",
+        "updateTime": "2026-04-18T09:00:00Z",
+        "reviewReply": {
+          "comment": "Quinn, you're right — that's a logistics failure on our end. We've since stocked up the most common replacement parts in all our vans. Thank you for the feedback.",
+          "updateTime": "2026-04-18T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Rachel Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Mini-split installation for our home office went smoothly. Clean wiring, tidy mounting, and they were respectful of the workspace throughout. Efficient job.",
+        "createTime": "2026-05-28T14:00:00Z",
+        "updateTime": "2026-05-28T14:00:00Z"
+      }
+    ],
+    "200000003": [
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Sam Johnson",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Lawn has never looked better after their biweekly care program. They noticed I had a grub issue starting in the back corner before I did and treated it immediately. Proactive and professional.",
+        "createTime": "2026-04-10T11:00:00Z",
+        "updateTime": "2026-04-10T11:00:00Z",
+        "reviewReply": {
+          "comment": "Sam, catching grubs early is the difference between a minor treatment and a full lawn replacement. We keep our eyes open! 🌿",
+          "updateTime": "2026-04-10T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Tara Mitchell",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Spring cleanup was thorough — edging, aeration, overseeding, mulching all done in one visit by a 3-person crew. Efficient and tidy. Neighbours have already asked for the contact.",
+        "createTime": "2026-03-28T16:00:00Z",
+        "updateTime": "2026-03-28T16:00:00Z",
+        "reviewReply": {
+          "comment": "Tara, a lawn that generates referrals is our best advertisement! Pass our number along. 🌱",
+          "updateTime": "2026-03-28T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Uma Clark",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Crew showed up 2 hours late without calling. When they did arrive, the hedge trimming was uneven on one side. When I pointed it out they fixed it but seemed annoyed. Punctuality and attitude need work.",
+        "createTime": "2026-04-28T17:00:00Z",
+        "updateTime": "2026-04-28T17:00:00Z",
+        "reviewReply": {
+          "comment": "Uma, two complaints in one review and both are valid. Late arrivals should always come with a call. We spoke with the crew lead. We'd like to earn back your confidence.",
+          "updateTime": "2026-04-28T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Victor Adams",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Tree removal of a massive oak was handled safely, professionally, and efficiently. 5-person crew, full cleanup including chipping the branches and hauling the trunk. Quoted fairly and came in on budget.",
+        "createTime": "2026-05-15T09:00:00Z",
+        "updateTime": "2026-05-15T09:00:00Z",
+        "reviewReply": {
+          "comment": "Victor, big tree removals require big teams and careful planning — glad it went smoothly! That oak lived a good life. 🌳",
+          "updateTime": "2026-05-15T23:59:00Z"
+        }
       }
     ]
   },
-  "notification_settings": {}
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW",
+        "NEW_QUESTION",
+        "UPDATED_QUESTION",
+        "NEW_MEDIA",
+        "UPDATED_MENU",
+        "UPDATED_LOCATION"
+      ]
+    }
+  }
 }

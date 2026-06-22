@@ -1,11 +1,17 @@
 {
   "scenario": "default",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "Single-account, single-location happy path. Sakura Japanese Restaurant with rich hours, categories, and 20 diverse reviews.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Acme Corp",
+      "accountName": "Sakura Hospitality Group",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -17,34 +23,132 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Acme Corp Downtown",
+        "title": "Sakura Japanese Restaurant",
         "storefrontAddress": {
-          "addressLines": ["123 Main St"],
+          "addressLines": [
+            "388 Geary St"
+          ],
           "locality": "San Francisco",
+          "administrativeArea": "CA",
+          "postalCode": "94102",
           "regionCode": "US"
         },
         "phoneNumbers": {
-          "primaryPhone": "+14155551234",
-          "additionalPhones": []
-        },
-        "categories": {
-          "primaryCategory": { "displayName": "Restaurant" },
-          "additionalCategories": []
-        },
-        "websiteUri": "https://acme.example.com",
-        "regularHours": {
-          "periods": [
-            { "openDay": "MONDAY", "openTime": "09:00", "closeDay": "MONDAY", "closeTime": "17:00" },
-            { "openDay": "TUESDAY", "openTime": "09:00", "closeDay": "TUESDAY", "closeTime": "17:00" },
-            { "openDay": "WEDNESDAY", "openTime": "09:00", "closeDay": "WEDNESDAY", "closeTime": "17:00" },
-            { "openDay": "THURSDAY", "openTime": "09:00", "closeDay": "THURSDAY", "closeTime": "17:00" },
-            { "openDay": "FRIDAY", "openTime": "09:00", "closeDay": "FRIDAY", "closeTime": "17:00" }
+          "primaryPhone": "+14155559200",
+          "additionalPhones": [
+            "+14155559201"
           ]
         },
-        "openInfo": { "status": "OPEN" },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Japanese Restaurant"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Sushi Restaurant"
+            },
+            {
+              "displayName": "Ramen Restaurant"
+            },
+            {
+              "displayName": "Asian Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://sakura-sf.example.com",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "11:30",
+              "closeDay": "MONDAY",
+              "closeTime": "14:30"
+            },
+            {
+              "openDay": "MONDAY",
+              "openTime": "17:00",
+              "closeDay": "MONDAY",
+              "closeTime": "22:30"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "11:30",
+              "closeDay": "TUESDAY",
+              "closeTime": "14:30"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "17:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "22:30"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "11:30",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "14:30"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "17:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "22:30"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "11:30",
+              "closeDay": "THURSDAY",
+              "closeTime": "14:30"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "17:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "22:30"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "11:30",
+              "closeDay": "FRIDAY",
+              "closeTime": "14:30"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "17:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "22:30"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "11:30",
+              "closeDay": "SATURDAY",
+              "closeTime": "14:30"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "17:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "22:30"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN",
+          "canReopen": true
+        },
+        "profile": {
+          "description": "Authentic Japanese cuisine in the heart of Union Square. Award-winning sushi, hand-crafted ramen, and an extensive sake menu. Reservations recommended."
+        },
         "metadata": {
-          "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
-          "mapsUri": "https://maps.google.com/?cid=10281119596374313554"
+          "placeId": "ChIJXXsakuraSF0101",
+          "mapsUri": "https://maps.google.com/?cid=10001",
+          "newReviewUri": "https://search.google.com/local/writereview?placeid=ChIJXXsakuraSF0101",
+          "duplicateLocation": false,
+          "hasGeocodingIssues": false,
+          "hasPendingEdits": false,
+          "canDelete": false,
+          "canOperateLodgingData": false,
+          "canHaveBusinessCalls": true
         }
       }
     ]
@@ -56,39 +160,304 @@
         "reviewId": "rev001",
         "reviewer": {
           "displayName": "Alice Martin",
-          "profilePhotoUrl": "https://example.com/photos/alice.jpg",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
           "isAnonymous": false
         },
         "starRating": "FIVE",
-        "comment": "Excellent service and great atmosphere!",
-        "createTime": "2026-05-01T10:00:00Z",
-        "updateTime": "2026-05-01T10:00:00Z"
+        "comment": "Absolutely stunning sushi! The omakase was a 10-course journey through the best ingredients I've had outside of Tokyo. The chef clearly has a passion for his craft. Service was impeccable — attentive without hovering. I'll be back for every special occasion.",
+        "createTime": "2026-01-10T18:32:00Z",
+        "updateTime": "2026-01-10T18:32:00Z",
+        "reviewReply": {
+          "comment": "Thank you so much, Alice! Your kind words made our whole team smile. We look forward to welcoming you back for your next celebration! 🌸",
+          "updateTime": "2026-01-10T23:59:00Z"
+        }
       },
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev002",
         "reviewId": "rev002",
         "reviewer": {
           "displayName": "Bob Chen",
-          "profilePhotoUrl": "https://example.com/photos/bob.jpg",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
           "isAnonymous": false
         },
         "starRating": "THREE",
-        "comment": "Decent experience but the wait was longer than expected.",
-        "createTime": "2026-05-15T14:30:00Z",
-        "updateTime": "2026-05-15T14:30:00Z"
+        "comment": "Good food, but the wait time for a reservation was over three weeks. Once inside, the ramen was excellent but portions felt small for the price. The sake selection made up for it — great pairing recommendations from the staff.",
+        "createTime": "2026-01-22T12:15:00Z",
+        "updateTime": "2026-01-22T12:15:00Z"
       },
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev003",
         "reviewId": "rev003",
         "reviewer": {
           "displayName": "Carol Davis",
-          "profilePhotoUrl": "https://example.com/photos/carol.jpg",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
           "isAnonymous": false
         },
         "starRating": "FOUR",
-        "comment": "Good food, friendly staff. Will return.",
-        "createTime": "2026-06-01T09:00:00Z",
-        "updateTime": "2026-06-01T09:00:00Z"
+        "comment": "Wonderful atmosphere and very fresh fish. The spicy tuna roll is the best I've had in San Francisco. Docking one star because it was very loud on a Friday night — hard to hold a conversation.",
+        "createTime": "2026-02-04T20:05:00Z",
+        "updateTime": "2026-02-04T20:05:00Z",
+        "reviewReply": {
+          "comment": "Thank you, Carol! We're working on some acoustic improvements for the dining room. We hope the food more than made up for it!",
+          "updateTime": "2026-02-04T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "David Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "We celebrated our anniversary here and they went above and beyond — complimentary dessert, personalized message on the plate, beautiful flower arrangement. The toro sashimi melted in my mouth. Truly a 5-star experience in every sense.",
+        "createTime": "2026-02-14T21:00:00Z",
+        "updateTime": "2026-02-14T21:00:00Z",
+        "reviewReply": {
+          "comment": "Happy Anniversary, David! Moments like yours are why we love what we do. We can't wait to celebrate more milestones with you! 🎉",
+          "updateTime": "2026-02-14T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Emma Thompson",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Was really looking forward to this based on reviews. Unfortunately our server seemed overwhelmed and forgot our appetizers twice. The food that did arrive was good, but the experience was overshadowed by poor service. Might give it another chance on a quieter night.",
+        "createTime": "2026-02-20T19:45:00Z",
+        "updateTime": "2026-02-20T19:45:00Z",
+        "reviewReply": {
+          "comment": "We're truly sorry about your experience, Emma. This is not the standard we hold ourselves to. Please reach out to us directly and we'd like to make it right.",
+          "updateTime": "2026-02-20T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Frank Nguyen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Best ramen in SF, hands down. The tonkotsu broth is rich and complex without being overwhelming. The chashu pork is slow-cooked to perfection. Been coming here every month for two years and it never disappoints.",
+        "createTime": "2026-03-01T13:20:00Z",
+        "updateTime": "2026-03-01T13:20:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Grace Liu",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Excellent lunch set — great value. Three courses including miso soup, a main, and dessert for a very reasonable price. The dragon roll is a must. Location is convenient to Union Square shopping.",
+        "createTime": "2026-03-08T12:45:00Z",
+        "updateTime": "2026-03-08T12:45:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Henry Walsh",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Visited for the first time last week and already planning my return. The chef explained each dish as it arrived during omakase — educational and delicious. The yuzu sake cocktail was a revelation.",
+        "createTime": "2026-03-15T19:30:00Z",
+        "updateTime": "2026-03-15T19:30:00Z",
+        "reviewReply": {
+          "comment": "Welcome to the Sakura family, Henry! We love sharing the stories behind each dish. See you again soon! 🍶",
+          "updateTime": "2026-03-15T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev009",
+        "reviewId": "rev009",
+        "reviewer": {
+          "displayName": "Iris Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev009",
+          "isAnonymous": false
+        },
+        "starRating": "ONE",
+        "comment": "Extremely disappointed. I'm vegetarian and despite specifying this clearly when booking, every other course contained hidden fish broth or fish flakes. When I raised it they just said 'we use dashi in everything.' A heads up at booking would have been considerate.",
+        "createTime": "2026-03-22T21:10:00Z",
+        "updateTime": "2026-03-22T21:10:00Z",
+        "reviewReply": {
+          "comment": "Iris, we sincerely apologize. We should have communicated our dashi usage upfront during booking. We are now adding a clear note to our reservation system and would love to offer you a fully plant-based omakase — please contact us.",
+          "updateTime": "2026-03-22T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev010",
+        "reviewId": "rev010",
+        "reviewer": {
+          "displayName": "James Carter",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev010",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Solid 4 stars. The quality is consistently high, the sake menu is extraordinary, and the chef's special changes weekly which keeps things interesting. Only gripe is parking can be a nightmare on weekends.",
+        "createTime": "2026-04-02T20:00:00Z",
+        "updateTime": "2026-04-02T20:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev011",
+        "reviewId": "rev011",
+        "reviewer": {
+          "displayName": "Karen White",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev011",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Brought my parents here from Japan and they were impressed — which is high praise! The fish quality rivals what you'd find in Tsukiji market. My father especially loved the ikura gunkan. The service team spoke some Japanese which was a lovely touch.",
+        "createTime": "2026-04-09T18:30:00Z",
+        "updateTime": "2026-04-09T18:30:00Z",
+        "reviewReply": {
+          "comment": "What a wonderful compliment — earning the approval of guests from Japan means the world to us! We hope to see your family again. いつもありがとうございます！",
+          "updateTime": "2026-04-09T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev012",
+        "reviewId": "rev012",
+        "reviewer": {
+          "displayName": "Leo Brown",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev012",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Mixed experience. The sushi was beautiful and fresh but the tempura was soggy. Service was warm and welcoming. Good wine list for a Japanese restaurant. Probably won't order the tempura again but everything else was solid.",
+        "createTime": "2026-04-15T19:50:00Z",
+        "updateTime": "2026-04-15T19:50:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev013",
+        "reviewId": "rev013",
+        "reviewer": {
+          "displayName": "Mia Zhang",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev013",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Private dining room for a corporate dinner was flawless. The kitchen accommodated multiple dietary restrictions across 14 guests without missing a beat. Our account manager communicated proactively throughout the planning process. This will be our go-to for client entertainment.",
+        "createTime": "2026-04-22T20:30:00Z",
+        "updateTime": "2026-04-22T20:30:00Z",
+        "reviewReply": {
+          "comment": "Thank you, Mia! We love being part of your team's big moments. Our events coordinator looks forward to working with you again anytime!",
+          "updateTime": "2026-04-22T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev014",
+        "reviewId": "rev014",
+        "reviewer": {
+          "displayName": "Nathan Ross",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev014",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Very good sashimi platter and the uni was incredibly fresh. The cocktail menu is creative. Atmosphere is intimate and romantic — great date spot. Prices are high but justified for the quality. Reservation needed well in advance.",
+        "createTime": "2026-05-01T20:15:00Z",
+        "updateTime": "2026-05-01T20:15:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev015",
+        "reviewId": "rev015",
+        "reviewer": {
+          "displayName": "Olivia Martinez",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev015",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The chef's omakase tonight included a stunning A5 Wagyu nigiri course that I've been dreaming about since. The matcha crème brûlée dessert was unexpected and perfect. Cannot recommend highly enough.",
+        "createTime": "2026-05-10T21:00:00Z",
+        "updateTime": "2026-05-10T21:00:00Z",
+        "reviewReply": {
+          "comment": "Olivia, your enthusiasm inspires us to keep pushing the limits of what we can create! The A5 Wagyu nigiri is a new seasonal addition — thrilled it hit the mark. 🥩",
+          "updateTime": "2026-05-10T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev016",
+        "reviewId": "rev016",
+        "reviewer": {
+          "displayName": "Peter Okafor",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev016",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Long wait even with a reservation — we were seated 40 minutes late. The restaurant was clearly overbooked. Once seated the food was fine but not exceptional for the price. Would not pay premium prices for a chaotic experience.",
+        "createTime": "2026-05-18T21:45:00Z",
+        "updateTime": "2026-05-18T21:45:00Z",
+        "reviewReply": {
+          "comment": "Peter, we're very sorry about the delay — we had an unexpected staffing issue that evening and it affected our timing significantly. This is unacceptable. We'd be honored to offer you a complimentary tasting menu on a future visit.",
+          "updateTime": "2026-05-18T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev017",
+        "reviewId": "rev017",
+        "reviewer": {
+          "displayName": "Quinn Foster",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev017",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Best meal I've had in over a decade of dining in San Francisco. The knife skills on display during the omakase counter experience were mesmerizing. The omakase included a truffle ponzu course that I still can't stop thinking about.",
+        "createTime": "2026-05-25T20:00:00Z",
+        "updateTime": "2026-05-25T20:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev018",
+        "reviewId": "rev018",
+        "reviewer": {
+          "displayName": "Rachel Green",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev018",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great for a business lunch. The bento set is filling, quick, and impressive enough to bring clients. Service is professional. The miso black cod is the standout dish on the lunch menu.",
+        "createTime": "2026-06-01T12:30:00Z",
+        "updateTime": "2026-06-01T12:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev019",
+        "reviewId": "rev019",
+        "reviewer": {
+          "displayName": "Samuel Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev019",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Decent restaurant but hype might be slightly ahead of reality. Good but not mind-blowing sushi. The soup was lukewarm. However the staff are genuinely lovely people and the ambiance is spot on.",
+        "createTime": "2026-06-08T19:00:00Z",
+        "updateTime": "2026-06-08T19:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev020",
+        "reviewId": "rev020",
+        "reviewer": {
+          "displayName": "Tina Russo",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev020",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Came for the omakase on a whim after a last-minute cancellation opened up a counter seat. Best spontaneous decision I've ever made. Chatted with the chef for 2 hours while 12 exquisite courses appeared. The hospitality alone would earn 5 stars.",
+        "createTime": "2026-06-15T20:45:00Z",
+        "updateTime": "2026-06-15T20:45:00Z",
+        "reviewReply": {
+          "comment": "Tina, we love when happy accidents bring wonderful guests to our counter! The chef was delighted by your conversation. Please come back anytime — your seat awaits! ✨",
+          "updateTime": "2026-06-15T23:59:00Z"
+        }
       }
     ]
   },
@@ -96,7 +465,15 @@
     "100000001": {
       "name": "accounts/100000001/notificationSetting",
       "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
-      "notificationTypes": ["NEW_REVIEW", "UPDATED_REVIEW"]
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW",
+        "NEW_QUESTION",
+        "UPDATED_QUESTION",
+        "NEW_MEDIA",
+        "UPDATED_MENU",
+        "UPDATED_LOCATION"
+      ]
     }
   }
 }
