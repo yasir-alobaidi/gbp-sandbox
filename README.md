@@ -20,7 +20,7 @@ Google's only official testing option is a `validateOnly` flag on some write cal
 
 ```bash
 # 1. Clone
-git clone https://github.com/your-org/gbp-sandbox.git
+git clone https://github.com/yasir-alobaidi/gbp-sandbox.git
 cd gbp-sandbox
 
 # 2. Start
