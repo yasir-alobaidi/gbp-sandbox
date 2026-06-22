@@ -249,7 +249,13 @@ class ScenarioState:
         page_size: int,
         page_token: Optional[str],
     ) -> Tuple[List[Dict], float, int, Optional[str]]:
-        all_reviews = self.get_reviews(account_id, location_id)
+        # Real Google Reviews API returns newest-first. Sort by createTime descending
+        # so pagination, early-exit cutoffs, and backfill logic all work correctly.
+        all_reviews = sorted(
+            self.get_reviews(account_id, location_id),
+            key=lambda r: r.get("createTime", ""),
+            reverse=True,
+        )
         total = len(all_reviews)
         offset = decode_page_token(page_token) if page_token else 0
         page = all_reviews[offset: offset + page_size]
