@@ -64,17 +64,53 @@ When your app redirects to the Google consent screen, the sandbox **instantly au
 
 ### Logged-in user identity
 
-After OAuth your app may call the userinfo endpoint. It returns:
+After OAuth your app may call the userinfo endpoint. It returns an email in
+the form **`{scenario}@sandbox.test`** — always predictable from the active
+scenario name, nothing to look up.
 
 ```json
 {
-  "email": "mock-user@sandbox.example.com",
-  "name": "Mock GBP User",
+  "email": "default@sandbox.test",
+  "name": "GBP Test User",
   "verified_email": true
 }
 ```
 
-Use **`mock-user@sandbox.example.com`** as the connected Google account email anywhere your UI or database stores it.
+| Scenario | Email |
+|---|---|
+| `default` | `default@sandbox.test` |
+| `multi-location` | `multi-location@sandbox.test` |
+| `multi-account` | `multi-account@sandbox.test` |
+| `manager-role` | `manager-role@sandbox.test` |
+| `empty-account` | `empty-account@sandbox.test` |
+| `many-locations` | `many-locations@sandbox.test` |
+| `many-reviews` | `many-reviews@sandbox.test` |
+| `closed-location` | `closed-location@sandbox.test` |
+| `service-area-business` | `service-area-business@sandbox.test` |
+| `already-claimed-location` | `already-claimed-location@sandbox.test` |
+| `rating-only-reviews` | `rating-only-reviews@sandbox.test` |
+| `pre-existing-replies` | `pre-existing-replies@sandbox.test` |
+| `rate-limited` | `rate-limited@sandbox.test` |
+| `unverified-account` | `unverified-account@sandbox.test` |
+| `consent-denied` | `consent-denied@sandbox.test` _(OAuth never completes)_ |
+| `refresh-revoked` | `refresh-revoked@sandbox.test` |
+| `zero-quota` | `zero-quota@sandbox.test` |
+| `duplicate-notification` | `duplicate-notification@sandbox.test` |
+| `google-update-notification` | `google-update-notification@sandbox.test` |
+
+> **Rule of thumb:** `{scenario-name}@sandbox.test` — that's it.
+
+The endpoint also honours `X-Mock-Scenario`, so a per-request override returns
+the matching email without touching global state.
+
+**Override per-fixture** (optional) — add `oauth.user` to any fixture JSON:
+
+```json
+"oauth": {
+  "behavior": "success",
+  "user": { "email": "custom@example.com", "name": "Custom Name" }
+}
+```
 
 ### API calls (after OAuth)
 

@@ -223,6 +223,34 @@ class ScenarioState:
         return self._state.get("oauth", {}).get("behavior", "success")
 
     @property
+    def user_email(self) -> str:
+        """Mock Google account email returned by /oauth2/v2/userinfo.
+
+        Defaults to ``{scenario-name}@sandbox.test`` so the value is always
+        predictable from the active scenario — no need to look it up.
+
+        Override per-fixture via the ``oauth.user.email`` key::
+
+            "oauth": { "behavior": "success", "user": { "email": "custom@example.com" } }
+        """
+        return (
+            self._state.get("oauth", {}).get("user", {}).get("email")
+            or f"{self.name}@sandbox.test"
+        )
+
+    @property
+    def user_name(self) -> str:
+        """Mock Google account display name returned by /oauth2/v2/userinfo.
+
+        Defaults to ``"GBP Test User"``.  Override per-fixture via
+        ``oauth.user.name``.
+        """
+        return (
+            self._state.get("oauth", {}).get("user", {}).get("name")
+            or "GBP Test User"
+        )
+
+    @property
     def is_rate_limited(self) -> bool:
         return bool(self._state.get("error_injection", {}).get("rate_limit", False))
 

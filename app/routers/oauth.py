@@ -102,20 +102,37 @@ async def oauth_consent(
 
 
 @router.get("/oauth2/v2/userinfo")
-async def userinfo(request: Request):
+async def userinfo(
+    request: Request,
+    x_mock_scenario: Optional[str] = Header(None),
+):
     """Google userinfo endpoint — called after OAuth to get the user's email.
 
-    RepuHub uses this to populate account_email on the GoogleAccountConnection.
-    Returns a fixed mock email; safe to override per-fixture if needed.
+    Returns ``{scenario}@sandbox.test`` so the connected email is always
+    predictable from the active scenario name — easy to write, easy to recall.
+
+    Override per-fixture via the ``oauth.user`` key::
+
+        "oauth": {
+          "behavior": "success",
+          "user": { "email": "custom@example.com", "name": "Custom Name" }
+        }
+
+    Honours ``X-Mock-Scenario`` just like every other endpoint.
     """
+    state = get_scenario_for_request(x_mock_scenario)
+    name = state.user_name
+    parts = name.split(None, 1)
+    given = parts[0]
+    family = parts[1] if len(parts) > 1 else ""
     return JSONResponse(
         {
             "id": "mock_google_user_001",
-            "email": "mock-user@sandbox.example.com",
+            "email": state.user_email,
             "verified_email": True,
-            "name": "Mock GBP User",
-            "given_name": "Mock",
-            "family_name": "User",
+            "name": name,
+            "given_name": given,
+            "family_name": family,
             "picture": "https://example.com/photos/mock_user.jpg",
         }
     )
