@@ -1,12 +1,17 @@
 {
   "scenario": "pre-existing-replies",
-  "description": "Some reviews already have a reviewReply before your sync runs. Confirms sync doesn't clobber an existing owner reply that didn't originate from RepuHub.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "20 reviews across 2 locations with mixed reply states: some have replies from before your sync, some don't. Confirms sync doesn't clobber existing replies and handles unanswered reviews separately.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Replied Corp",
+      "accountName": "Grand Palms Hotel Group",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,17 +23,93 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Pre-Replied Location",
+        "title": "Grand Palms Hotel — Miami Beach",
         "storefrontAddress": {
-          "addressLines": ["7 Response Way"],
-          "locality": "Denver",
+          "addressLines": [
+            "3500 Collins Ave"
+          ],
+          "locality": "Miami Beach",
+          "administrativeArea": "FL",
+          "postalCode": "33140",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+13035550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Hotel" }, "additionalCategories": [] },
-        "websiteUri": "https://replied.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_replied_001", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+13055551000",
+          "additionalPhones": [
+            "+13055551001"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Hotel"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Resort"
+            },
+            {
+              "displayName": "Luxury Hotel"
+            },
+            {
+              "displayName": "Spa"
+            }
+          ]
+        },
+        "websiteUri": "https://grandpalms.example.com/miami",
+        "regularHours": {
+          "periods": []
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "profile": {
+          "description": "Iconic oceanfront resort on Miami Beach. 280 rooms, 3 restaurants, rooftop pool, world-class spa, and direct beach access."
+        },
+        "metadata": {
+          "placeId": "ChIJgrandpalms001",
+          "mapsUri": "https://maps.google.com/?cid=gp001"
+        }
+      },
+      {
+        "name": "locations/200000002",
+        "title": "Grand Palms Hotel — Key West",
+        "storefrontAddress": {
+          "addressLines": [
+            "2 Duval St"
+          ],
+          "locality": "Key West",
+          "administrativeArea": "FL",
+          "postalCode": "33040",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+13055552000",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Boutique Hotel"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Bed and Breakfast"
+            },
+            {
+              "displayName": "Vacation Hotel"
+            }
+          ]
+        },
+        "websiteUri": "https://grandpalms.example.com/keywest",
+        "regularHours": {
+          "periods": []
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJgrandpalms002",
+          "mapsUri": "https://maps.google.com/?cid=gp002"
+        }
       }
     ]
   },
@@ -37,39 +118,243 @@
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev001",
         "reviewId": "rev001",
-        "reviewer": { "displayName": "Karen White", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Karen White",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
         "starRating": "FIVE",
-        "comment": "Excellent stay!",
-        "createTime": "2026-05-20T10:00:00Z",
-        "updateTime": "2026-05-20T10:00:00Z",
+        "comment": "Stunning oceanfront views, immaculate rooms, and the breakfast buffet is genuinely world-class. The spa was the highlight — booked in for 3 hours and left floating on air. Worth every penny.",
+        "createTime": "2026-03-01T09:00:00Z",
+        "updateTime": "2026-03-01T09:00:00Z",
         "reviewReply": {
-          "comment": "Thank you for your kind words! We hope to see you again.",
-          "updateTime": "2026-05-21T09:00:00Z"
+          "comment": "Thank you so much, Karen! We are thrilled the spa was a highlight — our therapists put their heart into every session. We can't wait to welcome you back to the shores of Miami Beach. 🌴",
+          "updateTime": "2026-03-02T09:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Mia Clark",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great hotel with excellent beach access and a wonderful pool area. Minor hiccup with room assignment on arrival but the front desk resolved it quickly and graciously. Would definitely return.",
+        "createTime": "2026-03-10T12:00:00Z",
+        "updateTime": "2026-03-10T12:00:00Z",
+        "reviewReply": {
+          "comment": "Mia, we're glad our team turned things around quickly! That's exactly the responsiveness we strive for. See you on the beach soon! ☀️",
+          "updateTime": "2026-03-10T15:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Oliver Grant",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Honeymoon stay was absolutely magical. The team arranged turndown with rose petals and champagne without us asking — they clearly read the notes we left during booking. The level of care here is exceptional.",
+        "createTime": "2026-03-18T20:00:00Z",
+        "updateTime": "2026-03-18T20:00:00Z",
+        "reviewReply": {
+          "comment": "Oliver, congratulations on your wedding! Creating magical memories for honeymooners is one of our greatest joys. Wishing you both a lifetime of happiness! 💍",
+          "updateTime": "2026-03-19T09:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Patricia Lowe",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Hotel is beautiful but the air conditioning in room 418 made a loud banging noise all night. Maintenance came twice and couldn't fix it. Management moved us to another room at 2am which was handled well, but the first two nights were exhausting.",
+        "createTime": "2026-04-01T10:00:00Z",
+        "updateTime": "2026-04-01T10:00:00Z",
+        "reviewReply": {
+          "comment": "Patricia, we sincerely apologize for the disruption. Room 418 has since been fully serviced and that unit replaced. We're grateful for your patience and would love to offer you a complimentary stay to make it right.",
+          "updateTime": "2026-04-02T09:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev009",
+        "reviewId": "rev009",
+        "reviewer": {
+          "displayName": "Rachel Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev009",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The rooftop bar is worth the visit alone even if you're not staying. Incredible sunset views over the ocean. Our room was immaculate and the bed was the most comfortable hotel bed I've ever slept in. Five stars, zero hesitation.",
+        "createTime": "2026-04-10T19:30:00Z",
+        "updateTime": "2026-04-10T19:30:00Z",
+        "reviewReply": {
+          "comment": "Rachel, rooftop sunsets over Miami Beach never get old — we're so glad you experienced it! Sweet dreams on that pillow-top bed. Come back anytime! 🌅",
+          "updateTime": "2026-04-11T09:00:00Z"
         }
       },
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev002",
         "reviewId": "rev002",
-        "reviewer": { "displayName": "Leo Brown", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Leo Brown",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
         "starRating": "TWO",
-        "comment": "Room was noisy.",
-        "createTime": "2026-05-22T14:00:00Z",
-        "updateTime": "2026-05-22T14:00:00Z"
+        "comment": "Room was noisy from street-level. I know it's South Beach but the walls are very thin. Paid for 'ocean view' but it was more 'parking lot view' with a sliver of ocean in the distance. Management was polite when I raised the issue but no resolution offered.",
+        "createTime": "2026-03-05T14:00:00Z",
+        "updateTime": "2026-03-05T14:00:00Z"
       },
       {
-        "name": "accounts/100000001/locations/200000001/reviews/rev003",
-        "reviewId": "rev003",
-        "reviewer": { "displayName": "Mia Clark", "profilePhotoUrl": "", "isAnonymous": false },
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Nancy Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
         "starRating": "FOUR",
-        "comment": "Great breakfast, friendly staff.",
-        "createTime": "2026-05-25T08:00:00Z",
-        "updateTime": "2026-05-25T08:00:00Z",
+        "comment": "Great hotel overall. Beach service team is excellent — always proactive with towels and drinks. The main restaurant had slow service but the food was good once it arrived. Would come back for the beach access alone.",
+        "createTime": "2026-03-14T16:30:00Z",
+        "updateTime": "2026-03-14T16:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Paul Adams",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "ONE",
+        "comment": "Booked a king suite for our anniversary. Arrived to find a double room. Was told there was a 'system error'. No suite available for the full 4-night stay. The compensation offered was breakfast — completely inadequate for the circumstances.",
+        "createTime": "2026-03-22T18:00:00Z",
+        "updateTime": "2026-03-22T18:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Quinn Davis",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Check-in was seamless, bellhop was helpful with luggage, and the concierge had great restaurant recommendations. Room was a good size. Pool was occasionally crowded in the afternoon but that's to be expected in March.",
+        "createTime": "2026-04-05T12:00:00Z",
+        "updateTime": "2026-04-05T12:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev010",
+        "reviewId": "rev010",
+        "reviewer": {
+          "displayName": "Sarah Green",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev010",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Traveled solo and felt completely safe and well cared for. The team checked in proactively, recommended the best sunset spots, and arranged a boat tour for me on short notice. This place goes above and beyond.",
+        "createTime": "2026-04-15T17:00:00Z",
+        "updateTime": "2026-04-15T17:00:00Z"
+      }
+    ],
+    "200000002": [
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Tom Hall",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Intimate and charming. The Key West location is smaller but the attention to detail is extraordinary. Each room is individually decorated — ours had a maritime antique theme that was stunning. Breakfast on the porch was perfection.",
+        "createTime": "2026-03-08T09:30:00Z",
+        "updateTime": "2026-03-08T09:30:00Z",
         "reviewReply": {
-          "comment": "We're glad you enjoyed breakfast! See you next time.",
-          "updateTime": "2026-05-25T16:00:00Z"
+          "comment": "Tom, the maritime room is one of our absolute favourites! We think you chose well. Breakfast on the porch with the Key West breeze — magic. Come back anytime. 🌺",
+          "updateTime": "2026-03-09T09:00:00Z"
         }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Uma Patel",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Lovely boutique feel. Great cocktail bar with original Key West recipes. Room was cozy and comfortable. Only issue was the shower pressure was low — minor but worth mentioning for a premium property.",
+        "createTime": "2026-03-20T20:00:00Z",
+        "updateTime": "2026-03-20T20:00:00Z",
+        "reviewReply": {
+          "comment": "Uma, thank you for the note on shower pressure — we've since replaced the fixtures in that wing. The cocktail bar is one of our prides! We'd love to have you try our new sunset rum punch.",
+          "updateTime": "2026-03-21T09:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Victor Nguyen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Hidden gem of Key West. The owner personally greeted us on arrival and gave us local recommendations that led to the best dinner of our trip. This is what travel should feel like — real connection, not just a transaction.",
+        "createTime": "2026-03-15T18:00:00Z",
+        "updateTime": "2026-03-15T18:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Wendy Liu",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Nice location but the room felt dated compared to the price point. The tropical garden is lovely but the room itself needs a refresh — outdated fixtures and an uncomfortable mattress. Staff were friendly and helpful.",
+        "createTime": "2026-03-28T10:30:00Z",
+        "updateTime": "2026-03-28T10:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Xavier Brown",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Perfect for couples. Quiet, romantic, great porch area with hammocks. Close to Duval Street but far enough to escape the noise. The homemade granola at breakfast was worth waking up for.",
+        "createTime": "2026-04-07T09:00:00Z",
+        "updateTime": "2026-04-07T09:00:00Z"
       }
     ]
   },
-  "notification_settings": {}
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW",
+        "NEW_QUESTION",
+        "UPDATED_QUESTION",
+        "NEW_MEDIA",
+        "UPDATED_MENU",
+        "UPDATED_LOCATION"
+      ]
+    }
+  }
 }

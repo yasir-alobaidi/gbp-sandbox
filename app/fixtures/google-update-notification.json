@@ -1,12 +1,17 @@
 {
   "scenario": "google-update-notification",
-  "description": "Use with POST /admin/push passing notification_type=GOOGLE_UPDATE. Confirms the webhook handler doesn't assume every push is a NEW_REVIEW event and crashes when it gets a GOOGLE_UPDATE instead.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "Use with POST /admin/push passing notification_type=GOOGLE_UPDATE. Google pushes GOOGLE_UPDATE when they algorithmically change a business name, hours, or category. Your webhook handler must route on topicType and not crash when it receives something other than NEW_REVIEW. The location has realistic data so a GOOGLE_UPDATE might plausibly change its hours or category fields.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Google Update Corp",
+      "accountName": "The Rusty Anchor Gastropub",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,26 +23,237 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Google Update Test Location",
+        "title": "The Rusty Anchor Gastropub",
         "storefrontAddress": {
-          "addressLines": ["7 Update Ave"],
+          "addressLines": [
+            "1901 Allen Pkwy"
+          ],
           "locality": "Houston",
+          "administrativeArea": "TX",
+          "postalCode": "77019",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+17135550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Bar" }, "additionalCategories": [] },
-        "websiteUri": "https://update.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_gu_001", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+17135557001",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Gastropub"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Bar"
+            },
+            {
+              "displayName": "Sports Bar"
+            },
+            {
+              "displayName": "American Restaurant"
+            }
+          ]
+        },
+        "websiteUri": "https://rustyanchor.example.com",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "16:00",
+              "closeDay": "MONDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "16:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "16:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "16:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "23:30"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "12:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "02:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "11:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "02:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "11:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "22:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "profile": {
+          "description": "Houston Heights' favourite gastropub. 48 craft beers on tap, Texan-sourced kitchen, and the best patio in the city. Game day HQ."
+        },
+        "metadata": {
+          "placeId": "ChIJrustyanchor_hou",
+          "mapsUri": "https://maps.google.com/?cid=rustyanchor001"
+        }
       }
     ]
   },
-  "reviews": { "200000001": [] },
+  "reviews": {
+    "200000001": [
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Aaron Walsh",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "48 taps and every single one is a good choice — the staff know the menu cold and make recommendations that are always spot-on. The smash burger is criminally underrated.",
+        "createTime": "2026-02-14T20:00:00Z",
+        "updateTime": "2026-02-14T20:00:00Z",
+        "reviewReply": {
+          "comment": "Aaron, 48 taps is a menu and a mission. We train our staff hard on the pours. The smash burger appreciates the love! 🍔",
+          "updateTime": "2026-02-14T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Brianna Cole",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great patio bar for a Houston evening. Cooling misters actually work! Live music on Friday nights is a big draw. Beer selection is extraordinary.",
+        "createTime": "2026-03-01T19:30:00Z",
+        "updateTime": "2026-03-01T19:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Carlos Vega",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Came for the Texans game and stayed for 4 hours. Multiple screens at every angle, great sound system, friendly bar staff who kept the food coming during commercials. Perfect sports bar.",
+        "createTime": "2026-03-15T14:00:00Z",
+        "updateTime": "2026-03-15T14:00:00Z",
+        "reviewReply": {
+          "comment": "Carlos, game day at the Anchor is an experience we've worked hard to perfect! See you for the next game. 🏈",
+          "updateTime": "2026-03-15T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Dana Patel",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Good bar, mediocre food. The beer is excellent but the kitchen feels like an afterthought. The wings were lukewarm and the brisket sandwich was dry. Stick to apps and pints.",
+        "createTime": "2026-04-02T21:00:00Z",
+        "updateTime": "2026-04-02T21:00:00Z",
+        "reviewReply": {
+          "comment": "Dana, the kitchen critique is fair — we're retooling the menu with a new exec chef joining in July. We think you'll be surprised. Come back this summer.",
+          "updateTime": "2026-04-02T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Eli Nguyen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The DIPA from a local Heights brewery was flawless on nitro. Manager clearly curates the tap list with real care — nothing generic, all local or regional. This is how a craft bar should run.",
+        "createTime": "2026-04-18T20:30:00Z",
+        "updateTime": "2026-04-18T20:30:00Z",
+        "reviewReply": {
+          "comment": "Eli, the tap list gets revised weekly and we'll never settle for macro beers. Cheers to good taste! 🍺",
+          "updateTime": "2026-04-18T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Fiona Grant",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Solid Sunday brunch option. The Bloody Mary bar is a great concept and the brisket hash was well-executed. Patio was a bit hot by 11am but that's Houston.",
+        "createTime": "2026-05-05T11:30:00Z",
+        "updateTime": "2026-05-05T11:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Greg Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "The bar got absurdly loud on a Saturday night — couldn't hear the friend next to me, let alone order properly. The vibe is fun but the decibel level is a problem for anyone not 25.",
+        "createTime": "2026-05-20T22:00:00Z",
+        "updateTime": "2026-05-20T22:00:00Z",
+        "reviewReply": {
+          "comment": "Greg, the Saturday decibels are a valid trade-off we wrestle with. We're looking at acoustic panels for the main room that won't kill the energy.",
+          "updateTime": "2026-05-20T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Helen Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Trivia night on Wednesday is the best in Houston. Well-organized, good categories, fun host. The bar fills up so show up early to get a table. The jalapeño cream cheese pretzel is addictive.",
+        "createTime": "2026-06-04T20:00:00Z",
+        "updateTime": "2026-06-04T20:00:00Z",
+        "reviewReply": {
+          "comment": "Helen, trivia night is one of our favourite nights of the week! The pretzel situation is a known problem — we're considering making them unlimited. 🥨",
+          "updateTime": "2026-06-04T23:00:00Z"
+        }
+      }
+    ]
+  },
   "notification_settings": {
     "100000001": {
       "name": "accounts/100000001/notificationSetting",
       "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
-      "notificationTypes": ["NEW_REVIEW", "UPDATED_REVIEW", "GOOGLE_UPDATE"]
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW",
+        "GOOGLE_UPDATE"
+      ]
     }
   }
 }

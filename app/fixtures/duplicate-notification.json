@@ -1,12 +1,17 @@
 {
   "scenario": "duplicate-notification",
-  "description": "Use with POST /admin/push?duplicate=true. Sends the same messageId twice — Cloud Pub/Sub is at-least-once delivery, never exactly-once. Tests that your webhook handler is idempotent and doesn't double-process a review notification when the same messageId arrives again. This is one of the highest-value test cases: a Celery task that lacks an idempotency key will queue the same work twice.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "Use with POST /admin/push?duplicate=true. Sends the same messageId twice — Cloud Pub/Sub is at-least-once, never exactly-once. Your webhook handler must be idempotent: processing rev_new_001 twice must not create two DB rows, queue two Celery tasks, or send two reply emails. 10 pre-existing reviews are included so the handler fetches real data before hitting the idempotency check.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Idempotency Corp",
+      "accountName": "IronCore Fitness Studio",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,17 +23,96 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Idempotency Test Location",
+        "title": "IronCore Fitness Studio — Midtown",
         "storefrontAddress": {
-          "addressLines": ["1 Idempotent St"],
+          "addressLines": [
+            "800 Peachtree St NE",
+            "Suite 200"
+          ],
           "locality": "Atlanta",
+          "administrativeArea": "GA",
+          "postalCode": "30308",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+14045550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Gym" }, "additionalCategories": [] },
-        "websiteUri": "https://idempotent.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_idem_001", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+14045550010",
+          "additionalPhones": [
+            "+14045550011"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Gym"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Personal Trainer"
+            },
+            {
+              "displayName": "CrossFit Gym"
+            },
+            {
+              "displayName": "Fitness Center"
+            }
+          ]
+        },
+        "websiteUri": "https://ironcore.example.com",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "05:00",
+              "closeDay": "MONDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "05:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "05:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "05:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "05:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "05:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "05:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "23:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "profile": {
+          "description": "Atlanta's premier functional fitness studio. Olympic lifting, CrossFit-style WODs, and 1-on-1 coaching. No contracts."
+        },
+        "metadata": {
+          "placeId": "ChIJironcore_atl",
+          "mapsUri": "https://maps.google.com/?cid=ironcore001"
+        }
       }
     ]
   },
@@ -37,11 +121,169 @@
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev001",
         "reviewId": "rev001",
-        "reviewer": { "displayName": "Oscar Reed", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Oscar Reed",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
         "starRating": "FIVE",
-        "comment": "Amazing facilities!",
-        "createTime": "2026-06-15T08:00:00Z",
-        "updateTime": "2026-06-15T08:00:00Z"
+        "comment": "Amazing facilities! The Olympic platform area is the best in Atlanta. Coaches are knowledgeable and push you to your limit in the best way.",
+        "createTime": "2026-06-01T08:00:00Z",
+        "updateTime": "2026-06-01T08:00:00Z",
+        "reviewReply": {
+          "comment": "Thanks Oscar! Our coaching team works hard to challenge every member. See you at the 6am WOD! 💪",
+          "updateTime": "2026-06-01T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Paula Green",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great coaching, clean gym, solid equipment. The programming is smart — progressive overload built into the weekly structure. Community is welcoming to newcomers.",
+        "createTime": "2026-06-02T09:30:00Z",
+        "updateTime": "2026-06-02T09:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Quinn Morris",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Been training here 18 months. PRd my deadlift last month — 315 lbs. The coaches tracked my form for months before letting me push heavy. They care about longevity, not just numbers.",
+        "createTime": "2026-06-03T10:00:00Z",
+        "updateTime": "2026-06-03T10:00:00Z",
+        "reviewReply": {
+          "comment": "Quinn, 315 is HUGE! Eighteen months of smart training pays off. Onward to 365! 🏋️",
+          "updateTime": "2026-06-03T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Rachel Hall",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Good gym but very crowded during peak hours (6-8pm weekdays). Hard to get on the platforms. Wish they offered a peak-hours cap on attendance.",
+        "createTime": "2026-06-04T19:00:00Z",
+        "updateTime": "2026-06-04T19:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Sam Lee",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Nutrition coaching as an add-on was a game changer. Lost 18 lbs in 12 weeks while adding muscle. The holistic approach here is rare in a gym environment.",
+        "createTime": "2026-06-05T11:00:00Z",
+        "updateTime": "2026-06-05T11:00:00Z",
+        "reviewReply": {
+          "comment": "Sam, 18 lbs and gaining muscle is exactly what we aim for — body recomposition done right. We're so proud of you! 🥗",
+          "updateTime": "2026-06-05T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Tina Johnson",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Clean showers, good lockers, respectful community. The towel service is a nice premium touch. Pricing is fair for Atlanta considering the quality of equipment.",
+        "createTime": "2026-06-06T07:30:00Z",
+        "updateTime": "2026-06-06T07:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Ulrich Brandt",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Signed up for a free trial class, wasn't told until after that my card would be charged for the second month automatically. Read the fine print, I know — but a heads-up would have been honest.",
+        "createTime": "2026-06-07T09:00:00Z",
+        "updateTime": "2026-06-07T09:00:00Z",
+        "reviewReply": {
+          "comment": "Ulrich, you're right — our trial-to-membership transition should be crystal clear upfront. We've updated our onboarding script to walk every trialist through the billing terms explicitly.",
+          "updateTime": "2026-06-07T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Vera Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Best WOD programming I've encountered across 5 different CrossFit-style gyms. The coaches scale appropriately for different ability levels so nobody is left behind or held back.",
+        "createTime": "2026-06-08T08:30:00Z",
+        "updateTime": "2026-06-08T08:30:00Z",
+        "reviewReply": {
+          "comment": "Vera, scalable programming for every athlete is our non-negotiable. Thanks for recognizing it! 🔥",
+          "updateTime": "2026-06-08T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev009",
+        "reviewId": "rev009",
+        "reviewer": {
+          "displayName": "Warren Liu",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev009",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Open gym hours 5am-11pm are a huge perk. Flexible enough for shift workers and early birds. Equipment availability during off-peak is excellent.",
+        "createTime": "2026-06-09T05:30:00Z",
+        "updateTime": "2026-06-09T05:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev010",
+        "reviewId": "rev010",
+        "reviewer": {
+          "displayName": "Xena Foster",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev010",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Joined after having a baby and the postpartum reintroduction program was thoughtful and well-designed. Never felt rushed back. Coaches understood my body was recalibrating.",
+        "createTime": "2026-06-10T10:00:00Z",
+        "updateTime": "2026-06-10T10:00:00Z",
+        "reviewReply": {
+          "comment": "Xena, postpartum fitness is one of the most important journeys we support. You should be incredibly proud of yourself. We're honored to be part of it. 💛",
+          "updateTime": "2026-06-10T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev_new_001",
+        "reviewId": "rev_new_001",
+        "reviewer": {
+          "displayName": "Yuki Tanaka",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev_new_001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Just left my first class — absolutely blown away. Signed up for a 3-month block on the spot. Best decision of my week.",
+        "createTime": "2026-06-15T09:00:00Z",
+        "updateTime": "2026-06-15T09:00:00Z"
       }
     ]
   },
@@ -49,7 +291,10 @@
     "100000001": {
       "name": "accounts/100000001/notificationSetting",
       "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
-      "notificationTypes": ["NEW_REVIEW", "UPDATED_REVIEW"]
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW"
+      ]
     }
   }
 }

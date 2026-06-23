@@ -1,12 +1,17 @@
 {
   "scenario": "rate-limited",
-  "description": "Every 3rd request to each API surface returns 429. Tests that your retry/backoff logic handles transient rate limits correctly. Uses the real QPM thresholds as inspiration — every 3rd request is more aggressive than real limits so tests run fast.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": true, "zero_quota": false },
+  "description": "Every 3rd request to each API surface returns 429 RATE_LIMIT_EXCEEDED (more aggressive than real GBP QPM limits so tests run fast). Tests retry/backoff logic across both location discovery AND review pagination. Two locations with 15 reviews total are included so the app must survive mid-pagination rate limit hits, not just the first call.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": true,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Acme Corp",
+      "accountName": "Nightfall Rooftop Venues",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,17 +23,143 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Acme Corp Downtown",
+        "title": "Nightfall Rooftop — Union Square",
         "storefrontAddress": {
-          "addressLines": ["123 Main St"],
+          "addressLines": [
+            "340 Powell St",
+            "Rooftop Level 14"
+          ],
           "locality": "San Francisco",
+          "administrativeArea": "CA",
+          "postalCode": "94102",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+14155551234", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Restaurant" }, "additionalCategories": [] },
-        "websiteUri": "https://acme.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_001", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+14155559600",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Rooftop Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Cocktail Bar"
+            },
+            {
+              "displayName": "Event Venue"
+            }
+          ]
+        },
+        "websiteUri": "https://nightfallrooftop.example.com/unionsq",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "17:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "02:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "17:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "02:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "17:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "02:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "17:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "02:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "17:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "02:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJnightfall_unionsq",
+          "mapsUri": ""
+        }
+      },
+      {
+        "name": "locations/200000002",
+        "title": "Nightfall Rooftop — SoMa",
+        "storefrontAddress": {
+          "addressLines": [
+            "255 Folsom St",
+            "Penthouse"
+          ],
+          "locality": "San Francisco",
+          "administrativeArea": "CA",
+          "postalCode": "94105",
+          "regionCode": "US"
+        },
+        "phoneNumbers": {
+          "primaryPhone": "+14155559700",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Rooftop Bar"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Lounge"
+            },
+            {
+              "displayName": "Nightclub"
+            }
+          ]
+        },
+        "websiteUri": "https://nightfallrooftop.example.com/soma",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "THURSDAY",
+              "openTime": "19:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "03:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "19:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "03:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "19:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "03:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "19:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "03:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJnightfall_soma",
+          "mapsUri": ""
+        }
       }
     ]
   },
@@ -37,11 +168,231 @@
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev001",
         "reviewId": "rev001",
-        "reviewer": { "displayName": "Nina Scott", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Nina Scott",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
         "starRating": "FOUR",
-        "comment": "Good, keep it up.",
-        "createTime": "2026-06-01T10:00:00Z",
-        "updateTime": "2026-06-01T10:00:00Z"
+        "comment": "Great rooftop views of Union Square. The espresso martini is the move. Can get crowded on Fridays but the line moves — worth the wait.",
+        "createTime": "2026-04-05T21:00:00Z",
+        "updateTime": "2026-04-05T21:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Omar Wells",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Sunrise brunch on the rooftop on Sunday was surreal. Views of the Bay Bridge from up here are stunning. The brunch cocktail menu was creative and strong.",
+        "createTime": "2026-04-12T10:30:00Z",
+        "updateTime": "2026-04-12T10:30:00Z",
+        "reviewReply": {
+          "comment": "Omar, Sunday sunrise brunches are our secret gem! So glad you found it. Come back this weekend. ☀️",
+          "updateTime": "2026-04-12T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Petra Lane",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "The drinks are excellent but pricey even by SF standards. Atmosphere is top-tier. Dress code enforcement was inconsistent — some people in and some turned away for similar outfits.",
+        "createTime": "2026-04-20T22:30:00Z",
+        "updateTime": "2026-04-20T22:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Quincy Allen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Private event booking was seamless. 40-person team dinner with a custom cocktail menu and it all ran perfectly. The events team communicated flawlessly throughout.",
+        "createTime": "2026-05-02T20:00:00Z",
+        "updateTime": "2026-05-02T20:00:00Z",
+        "reviewReply": {
+          "comment": "Quincy, 40-person corporate events are our sweet spot! We'll clear the calendar for you again anytime. 🥂",
+          "updateTime": "2026-05-02T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Rosa Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "The DJ on Friday nights is legitimately good. Top 40 but remixed in a way that doesn't feel generic. Rooftop + good music + good drinks = ideal Friday.",
+        "createTime": "2026-05-16T23:00:00Z",
+        "updateTime": "2026-05-16T23:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Samir Patel",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Waited 45 minutes for cocktails on a Saturday. Bar is clearly understaffed for the volume they allow in. The drinks were great when they arrived but the wait kills the vibe.",
+        "createTime": "2026-05-30T22:00:00Z",
+        "updateTime": "2026-05-30T22:00:00Z",
+        "reviewReply": {
+          "comment": "Samir, bar pacing on peak Saturday is our biggest operational challenge and we hear it clearly. Adding two more bar positions from June. Thank you for the honest feedback.",
+          "updateTime": "2026-05-30T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Tasha Williams",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Celebrated my 30th birthday here and the team made it special without me having to ask — confetti, sparklers on the bottle, staff singing. Magical evening.",
+        "createTime": "2026-06-07T22:30:00Z",
+        "updateTime": "2026-06-07T22:30:00Z",
+        "reviewReply": {
+          "comment": "Happy 30th Tasha! We love being part of milestone birthdays. Here's to the next 30! 🎂🥂",
+          "updateTime": "2026-06-07T23:00:00Z"
+        }
+      }
+    ],
+    "200000002": [
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Ursula Grant",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "SoMa location is more of a proper nightclub than the Union Square one. DJ booth, dedicated dance floor section, and the lighting is incredible. 2am closing time is a gift.",
+        "createTime": "2026-03-28T01:00:00Z",
+        "updateTime": "2026-03-28T01:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Victor Stone",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "The bottle service experience here is well-run. No waiting around for ice refills, host was attentive all night, and the premium spirits are legitimately premium.",
+        "createTime": "2026-04-10T00:30:00Z",
+        "updateTime": "2026-04-10T00:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Wendy James",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Good atmosphere but the sound system was distorting at peak volume — noticeably bad for a premium venue. Drinks and service were excellent though.",
+        "createTime": "2026-04-25T23:30:00Z",
+        "updateTime": "2026-04-25T23:30:00Z",
+        "reviewReply": {
+          "comment": "Wendy, the sound system feedback is noted — we actually just replaced the subwoofers, so please give us another chance and let us know if you notice the improvement.",
+          "updateTime": "2026-04-25T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Xavier Huang",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Brought my entire visiting London crew here and they couldn't believe SF had something this good. Compared it favorably to Shoreditch venues. That's a huge compliment from Brits who know nightlife.",
+        "createTime": "2026-05-08T01:30:00Z",
+        "updateTime": "2026-05-08T01:30:00Z",
+        "reviewReply": {
+          "comment": "Xavier, comparing us to Shoreditch is genuinely one of the best things anyone has said to us! Your London crew is welcome back anytime. 🇬🇧",
+          "updateTime": "2026-05-08T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Yara Davis",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great pre-club warm-up spot. Earlier in the evening (before 11pm) it has a more lounge-y feel which I preferred. Gets more intense as the night goes on — both options work depending on your mood.",
+        "createTime": "2026-05-22T21:00:00Z",
+        "updateTime": "2026-05-22T21:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Zack Miller",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Cover charge went up again without any notice on the website. This is the third time I've shown up expecting one price and paid another. Update your listings.",
+        "createTime": "2026-06-06T22:30:00Z",
+        "updateTime": "2026-06-06T22:30:00Z",
+        "reviewReply": {
+          "comment": "Zack, you're absolutely right and we're sorry. Cover pricing now updates same-day on all platforms. That shouldn't have happened three times.",
+          "updateTime": "2026-06-06T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Aisha Thompson",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The cocktail menu here changes monthly and it's always outstanding. The current 'SF Fog' cocktail with butterfly pea gin and yuzu is a masterpiece. Bartenders clearly have culinary-level skills.",
+        "createTime": "2026-06-14T22:00:00Z",
+        "updateTime": "2026-06-14T22:00:00Z",
+        "reviewReply": {
+          "comment": "Aisha, our head bartender treats every cocktail menu like a seasonal restaurant menu. The SF Fog is her favourite creation this year! 🌁",
+          "updateTime": "2026-06-14T23:00:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Ben Cooper",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Best nightclub in SoMa by a wide margin. Consistent quality across every visit this year. The music programming takes real risks and they mostly pay off. Would love to see some live sets.",
+        "createTime": "2026-06-18T23:30:00Z",
+        "updateTime": "2026-06-18T23:30:00Z"
       }
     ]
   },

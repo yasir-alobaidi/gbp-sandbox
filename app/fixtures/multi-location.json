@@ -1,12 +1,17 @@
 {
   "scenario": "multi-location",
-  "description": "3 locations under one account. Use to exercise the max_locations plan enforcement and the Google-import bypass bug where selection isn't capped.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "3 differentiated Harbor Fresh Seafood locations under one account — Ferry Terminal, Fisherman's Wharf, South Beach. Tests plan enforcement, location selection caps, and per-location review divergence.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Acme Corp",
+      "accountName": "Harbor Fresh Restaurant Group",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,45 +23,298 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Acme Corp Downtown",
+        "title": "Harbor Fresh — Ferry Terminal",
         "storefrontAddress": {
-          "addressLines": ["123 Main St"],
+          "addressLines": [
+            "1 Ferry Building, Shop 7"
+          ],
           "locality": "San Francisco",
+          "administrativeArea": "CA",
+          "postalCode": "94111",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+14155551001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Restaurant" }, "additionalCategories": [] },
-        "websiteUri": "https://acme.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_001", "mapsUri": "https://maps.google.com/?cid=001" }
+        "phoneNumbers": {
+          "primaryPhone": "+14155551001",
+          "additionalPhones": [
+            "+14155551002"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Seafood Restaurant"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Fish & Chips Restaurant"
+            },
+            {
+              "displayName": "Market"
+            }
+          ]
+        },
+        "websiteUri": "https://harborfresh.example.com/ferry",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "08:00",
+              "closeDay": "MONDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "08:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "08:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "08:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "08:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "08:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "20:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "08:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "20:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "profile": {
+          "description": "Farm-to-table seafood in the iconic Ferry Building. Locally-sourced oysters, Dungeness crab, and daily catch specials."
+        },
+        "metadata": {
+          "placeId": "ChIJferry001",
+          "mapsUri": "https://maps.google.com/?cid=ferry001"
+        }
       },
       {
         "name": "locations/200000002",
-        "title": "Acme Corp Uptown",
+        "title": "Harbor Fresh — Fisherman's Wharf",
         "storefrontAddress": {
-          "addressLines": ["456 Oak Ave"],
+          "addressLines": [
+            "2800 Jones St"
+          ],
           "locality": "San Francisco",
+          "administrativeArea": "CA",
+          "postalCode": "94133",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+14155551002", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Restaurant" }, "additionalCategories": [] },
-        "websiteUri": "https://acme.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_002", "mapsUri": "https://maps.google.com/?cid=002" }
+        "phoneNumbers": {
+          "primaryPhone": "+14155551003",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Seafood Restaurant"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Crab House"
+            },
+            {
+              "displayName": "Tourist Attraction"
+            }
+          ]
+        },
+        "websiteUri": "https://harborfresh.example.com/wharf",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "10:00",
+              "closeDay": "MONDAY",
+              "closeTime": "22:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "10:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "22:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "10:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "22:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "10:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "22:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "10:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "22:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "10:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "22:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "10:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "22:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "profile": {
+          "description": "Classic waterfront seafood experience. Clam chowder in sourdough, fresh crab, and stunning bay views. Open late daily."
+        },
+        "metadata": {
+          "placeId": "ChIJwharf002",
+          "mapsUri": "https://maps.google.com/?cid=wharf002"
+        }
       },
       {
         "name": "locations/200000003",
-        "title": "Acme Corp Airport",
+        "title": "Harbor Fresh — South Beach",
         "storefrontAddress": {
-          "addressLines": ["SFO Terminal 2"],
+          "addressLines": [
+            "140 The Embarcadero, Suite 100"
+          ],
           "locality": "San Francisco",
+          "administrativeArea": "CA",
+          "postalCode": "94105",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+14155551003", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Restaurant" }, "additionalCategories": [] },
-        "websiteUri": "https://acme.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_003", "mapsUri": "https://maps.google.com/?cid=003" }
+        "phoneNumbers": {
+          "primaryPhone": "+14155551004",
+          "additionalPhones": [
+            "+14155551005"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Seafood Restaurant"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Fine Dining Restaurant"
+            },
+            {
+              "displayName": "Oyster Bar"
+            }
+          ]
+        },
+        "websiteUri": "https://harborfresh.example.com/southbeach",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "TUESDAY",
+              "openTime": "11:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "15:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "17:30",
+              "closeDay": "TUESDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "11:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "15:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "17:30",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "11:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "15:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "17:30",
+              "closeDay": "THURSDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "11:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "15:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "17:30",
+              "closeDay": "FRIDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "11:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "15:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "17:30",
+              "closeDay": "SATURDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "11:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "15:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "17:30",
+              "closeDay": "SUNDAY",
+              "closeTime": "23:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "profile": {
+          "description": "Our upscale flagship. Award-winning wine list, raw bar with 12 oyster varieties, and an ever-changing tasting menu."
+        },
+        "metadata": {
+          "placeId": "ChIJsouthbeach003",
+          "mapsUri": "https://maps.google.com/?cid=sb003"
+        }
       }
     ]
   },
@@ -65,21 +323,449 @@
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev001",
         "reviewId": "rev001",
-        "reviewer": { "displayName": "Alice Martin", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Alice Martin",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
         "starRating": "FIVE",
-        "comment": "Best downtown spot!",
-        "createTime": "2026-05-01T10:00:00Z",
-        "updateTime": "2026-05-01T10:00:00Z"
+        "comment": "Best oysters in the city — and I've tried them all! The Hog Island selection is always pristine. Love grabbing a dozen before catching the ferry.",
+        "createTime": "2026-01-15T09:30:00Z",
+        "updateTime": "2026-01-15T09:30:00Z",
+        "reviewReply": {
+          "comment": "Thank you Alice! Our Ferry Building location prides itself on sourcing the best local oysters. See you next time! 🦪",
+          "updateTime": "2026-01-15T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Bob Chen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Great spot for a quick market breakfast. The fish sandwich is unbeatable. Gets crowded around the farmers' market hours on Saturdays but worth the wait.",
+        "createTime": "2026-01-28T08:45:00Z",
+        "updateTime": "2026-01-28T08:45:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Carol Davis",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Picked up a whole Dungeness crab and some sourdough — perfect picnic on the waterfront. Staff helped me crack the crab on site. Amazing service!",
+        "createTime": "2026-02-10T12:00:00Z",
+        "updateTime": "2026-02-10T12:00:00Z",
+        "reviewReply": {
+          "comment": "Carol, picnic-ready crabs are our specialty! We're always happy to help. Enjoy the waterfront! 🦀",
+          "updateTime": "2026-02-10T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "David Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Good quality but limited seating. I had to wait 20 min for a stool at the counter. Food was excellent — the ceviche is outstanding. Better if you go early.",
+        "createTime": "2026-02-22T11:30:00Z",
+        "updateTime": "2026-02-22T11:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Emma Thompson",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Came for the oyster happy hour. $1.50 oysters from 4-6pm is a steal in San Francisco. Paired with a glass of white Burgundy — absolute heaven.",
+        "createTime": "2026-03-05T17:00:00Z",
+        "updateTime": "2026-03-05T17:00:00Z",
+        "reviewReply": {
+          "comment": "Thanks Emma! Happy hour at the Ferry Building is our favourite time of day too. Cheers! 🍾",
+          "updateTime": "2026-03-05T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Frank Nguyen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Fresh, seasonal, sustainable. Exactly what you want in a seafood spot. The salmon chowder was thick and rich. Wish they were open past 8pm.",
+        "createTime": "2026-03-19T19:45:00Z",
+        "updateTime": "2026-03-19T19:45:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Grace Liu",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Brought a client from Seattle (where they know their seafood) and she was blown away. The ahi poke bowl and chilled seafood tower were both exceptional. Efficient service even when packed.",
+        "createTime": "2026-04-02T13:00:00Z",
+        "updateTime": "2026-04-02T13:00:00Z",
+        "reviewReply": {
+          "comment": "Grace, high praise from Seattle clients means everything! We hope to impress them again soon. 🎣",
+          "updateTime": "2026-04-02T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Henry Walsh",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Reliable quality every single visit. I come here every other week and the standard never drops. The clam chowder in a sourdough bowl is classic SF done right.",
+        "createTime": "2026-04-20T12:15:00Z",
+        "updateTime": "2026-04-20T12:15:00Z"
       }
     ],
-    "200000002": [],
-    "200000003": []
+    "200000002": [
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Iris Park",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Classic tourist spot that actually delivers. The chowder is legitimately one of the best I've had. Yes it's touristy, but quality is real.",
+        "createTime": "2026-01-20T13:00:00Z",
+        "updateTime": "2026-01-20T13:00:00Z",
+        "reviewReply": {
+          "comment": "Thanks Iris! We're proud that our food lives up to the landmark. Welcome back anytime! 🌊",
+          "updateTime": "2026-01-20T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "James Carter",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "Extremely crowded and prices are inflated because of the location. Crab was a little overcooked. Service was rushed. Would skip for a less touristy option.",
+        "createTime": "2026-02-08T14:30:00Z",
+        "updateTime": "2026-02-08T14:30:00Z",
+        "reviewReply": {
+          "comment": "James, we're sorry the experience didn't match expectations. We know we get busy but quality never takes a back seat. We'd love another chance.",
+          "updateTime": "2026-02-08T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Karen White",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Brought my kids here for a crab feast. They loved watching the boats and the crabs cracking is a whole event! Great family experience, really patient staff with the kids.",
+        "createTime": "2026-02-25T12:00:00Z",
+        "updateTime": "2026-02-25T12:00:00Z",
+        "reviewReply": {
+          "comment": "Karen, family crab feasts are what the Wharf is all about! Hope the kids are still talking about it. 🦀👨‍👩‍👧‍👦",
+          "updateTime": "2026-02-25T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Leo Brown",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Views are incredible, food is decent. Nothing more, nothing less. Exactly what you'd expect from a wharf restaurant. The seafood platter was fine — not bad, not amazing.",
+        "createTime": "2026-03-10T19:30:00Z",
+        "updateTime": "2026-03-10T19:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Mia Zhang",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Came for sunset dinner and it was magical. Watching the Golden Gate in the background while eating fresh crab is a San Francisco bucket list item. Food was excellent to match.",
+        "createTime": "2026-03-28T19:00:00Z",
+        "updateTime": "2026-03-28T19:00:00Z",
+        "reviewReply": {
+          "comment": "Mia, sunset dinners on the Wharf are pure magic — we love that you experienced it! 🌅",
+          "updateTime": "2026-03-28T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Nathan Ross",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Late dinner spot after an evening Giants game. Kitchen was still going strong at 10pm and the fish tacos were excellent. Great to have a late option in this area.",
+        "createTime": "2026-04-15T22:15:00Z",
+        "updateTime": "2026-04-15T22:15:00Z",
+        "reviewReply": {
+          "comment": "Go Giants! Thanks for ending the evening with us, Nathan. Fish tacos and baseball are a great combo! ⚾",
+          "updateTime": "2026-04-15T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Olivia Martinez",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "ONE",
+        "comment": "Found a piece of shell in my chowder and when I mentioned it to the server they just shrugged. No apology, no offer to replace it. For these prices, that's unacceptable.",
+        "createTime": "2026-05-02T12:45:00Z",
+        "updateTime": "2026-05-02T12:45:00Z",
+        "reviewReply": {
+          "comment": "Olivia, we are truly sorry. That interaction doesn't reflect our service standards at all. Please contact us directly so we can make this right immediately.",
+          "updateTime": "2026-05-02T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Peter Okafor",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The whole steamed crab was perfectly cooked — sweet and tender. Dipping it in the garlic butter sauce was an absolute highlight of our SF trip. Worth every penny.",
+        "createTime": "2026-05-20T18:30:00Z",
+        "updateTime": "2026-05-20T18:30:00Z",
+        "reviewReply": {
+          "comment": "Peter, whole steamed crab is our pride! So glad it was a trip highlight. Come back next time you're in SF! 🎉",
+          "updateTime": "2026-05-20T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000002/reviews/rev009",
+        "reviewId": "rev009",
+        "reviewer": {
+          "displayName": "Quinn Foster",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev009",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Solid seafood, great waterfront vibe. The shrimp cocktail was beautifully chilled. Lines can be long but they move fast. Staff are efficient and friendly.",
+        "createTime": "2026-06-05T13:00:00Z",
+        "updateTime": "2026-06-05T13:00:00Z"
+      }
+    ],
+    "200000003": [
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev001",
+        "reviewId": "rev001",
+        "reviewer": {
+          "displayName": "Rachel Green",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev001",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The South Beach flagship is in a class of its own. 12 oyster varieties on the raw bar — I tried all of them with the sommelier's pairing guide. The Barron Point oysters with a crisp Chablis was life-changing.",
+        "createTime": "2026-01-18T20:00:00Z",
+        "updateTime": "2026-01-18T20:00:00Z",
+        "reviewReply": {
+          "comment": "Rachel, the 12-oyster journey with wine pairings is exactly what we designed the raw bar for! We'll save a Barron Point for you next time. 🍷",
+          "updateTime": "2026-01-18T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev002",
+        "reviewId": "rev002",
+        "reviewer": {
+          "displayName": "Samuel Torres",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev002",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Upscale but not stuffy. The tasting menu was creative and seasonal — we got a special course with spring sea urchin that wasn't on the regular menu. Service team clearly knows their product.",
+        "createTime": "2026-02-05T20:30:00Z",
+        "updateTime": "2026-02-05T20:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev003",
+        "reviewId": "rev003",
+        "reviewer": {
+          "displayName": "Tina Russo",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev003",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Anniversary dinner was perfect. The chef sent out a surprise amuse-bouche and the team remembered my husband's shellfish allergy proactively at every course. Thoughtful, luxurious, unforgettable.",
+        "createTime": "2026-02-14T21:00:00Z",
+        "updateTime": "2026-02-14T21:00:00Z",
+        "reviewReply": {
+          "comment": "Tina, Happy Anniversary! Guest care is everything to us — allergies especially. We're so glad your evening was perfect. ❤️",
+          "updateTime": "2026-02-14T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev004",
+        "reviewId": "rev004",
+        "reviewer": {
+          "displayName": "Uma Patel",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Beautiful space and excellent raw bar, but the hot dishes didn't live up to the cold ones. The cioppino lacked the depth of flavor I expected. Dessert was the highlight — the lemon tart was incredible.",
+        "createTime": "2026-03-01T21:15:00Z",
+        "updateTime": "2026-03-01T21:15:00Z",
+        "reviewReply": {
+          "comment": "Uma, thank you for the candid feedback! We've actually reworked our cioppino recipe since your visit — we'd love for you to try the new version.",
+          "updateTime": "2026-03-01T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Victor Nguyen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev005",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Brought the whole family of 9 for a milestone birthday — they handled a large group flawlessly. Personalized menu cards, birthday cake surprise, photos by the staff. Went above and beyond.",
+        "createTime": "2026-03-22T19:30:00Z",
+        "updateTime": "2026-03-22T19:30:00Z",
+        "reviewReply": {
+          "comment": "Victor, 9 guests for a milestone — what a wonderful challenge! Congratulations to the birthday guest. We loved every moment. 🎂",
+          "updateTime": "2026-03-22T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Wendy Liu",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "The wine program here is extraordinary. Sommelier spent 20 minutes walking us through options and every suggestion was perfect. The 2019 Burgundy with the lobster bisque was a masterclass in pairing.",
+        "createTime": "2026-04-08T21:00:00Z",
+        "updateTime": "2026-04-08T21:00:00Z",
+        "reviewReply": {
+          "comment": "Wendy, our sommelier will be thrilled to hear this! Wine pairing is an art and we take it seriously. Please ask for him on your next visit. 🍷",
+          "updateTime": "2026-04-08T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Xavier Brown",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev007",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Business dinner for 6 — smooth, professional, impressive. The private dining section offers good privacy. The John Dory fish was a standout. One small note: the bread service was slow to start.",
+        "createTime": "2026-04-25T20:45:00Z",
+        "updateTime": "2026-04-25T20:45:00Z",
+        "reviewReply": {
+          "comment": "Xavier, thank you for the note on bread service — we've flagged this with our team. Glad the meal impressed your guests!",
+          "updateTime": "2026-04-25T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Yuki Tanaka",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "As someone from Japan, finding this level of seafood quality in the US is rare. The uni was fresh enough to rival what I'd find in Hokkaido. The staff's knowledge of Japanese seafood traditions impressed me.",
+        "createTime": "2026-05-12T19:45:00Z",
+        "updateTime": "2026-05-12T19:45:00Z",
+        "reviewReply": {
+          "comment": "Yuki, this is the highest compliment we could receive! We work very hard to honor seafood traditions. Please come back and share more of your insights with us. 🙏",
+          "updateTime": "2026-05-12T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev009",
+        "reviewId": "rev009",
+        "reviewer": {
+          "displayName": "Zoe Harris",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev009",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Cocktail menu is inventive — the sea salt martini with the oyster shooter was a conversation starter. Raw bar is the star here. Slightly pricier than expected but quality justifies it.",
+        "createTime": "2026-06-01T20:30:00Z",
+        "updateTime": "2026-06-01T20:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000003/reviews/rev010",
+        "reviewId": "rev010",
+        "reviewer": {
+          "displayName": "Adam Foster",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev010",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Four visits this year and every single one has been flawless. The consistency here at the flagship level is what separates Harbor Fresh from competitors. They've earned a permanent spot in my rotation.",
+        "createTime": "2026-06-14T21:00:00Z",
+        "updateTime": "2026-06-14T21:00:00Z",
+        "reviewReply": {
+          "comment": "Adam, four visits and counting — you are family to us! We look forward to many more. 🌊",
+          "updateTime": "2026-06-14T23:59:00Z"
+        }
+      }
+    ]
   },
   "notification_settings": {
     "100000001": {
       "name": "accounts/100000001/notificationSetting",
       "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
-      "notificationTypes": ["NEW_REVIEW", "UPDATED_REVIEW"]
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW",
+        "NEW_QUESTION",
+        "UPDATED_QUESTION",
+        "NEW_MEDIA",
+        "UPDATED_MENU",
+        "UPDATED_LOCATION"
+      ]
     }
   }
 }

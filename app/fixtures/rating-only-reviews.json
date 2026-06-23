@@ -1,12 +1,17 @@
 {
   "scenario": "rating-only-reviews",
-  "description": "Reviews with starRating set but NO comment field. These exist on real Google profiles. A parser that assumes comment is always present will break.",
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "15 reviews mixing rating-only (no comment) and with-comment. Parser must not assume comment is always present. Also mixes anonymous and identified reviewers.",
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "Silent Rater Corp",
+      "accountName": "Northwest Auto Detailing",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -18,17 +23,81 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "Silent Raters Location",
+        "title": "Northwest Auto Detailing",
         "storefrontAddress": {
-          "addressLines": ["42 Quiet Road"],
+          "addressLines": [
+            "4200 NE Broadway St"
+          ],
           "locality": "Portland",
+          "administrativeArea": "OR",
+          "postalCode": "97213",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+15035550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Bakery" }, "additionalCategories": [] },
-        "websiteUri": "https://silent.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_silent_001", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+15035551800",
+          "additionalPhones": []
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Car Detailing Service"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Car Wash"
+            },
+            {
+              "displayName": "Auto Spa"
+            }
+          ]
+        },
+        "websiteUri": "https://nwautodetail.example.com",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "08:00",
+              "closeDay": "MONDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "08:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "08:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "08:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "08:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "18:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "08:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "18:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "metadata": {
+          "placeId": "ChIJautodetail001",
+          "mapsUri": ""
+        }
       }
     ]
   },
@@ -37,37 +106,221 @@
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev001",
         "reviewId": "rev001",
-        "reviewer": { "displayName": "Henry Walsh", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Henry Walsh",
+          "profilePhotoUrl": "",
+          "isAnonymous": false
+        },
         "starRating": "FIVE",
-        "createTime": "2026-06-01T09:00:00Z",
-        "updateTime": "2026-06-01T09:00:00Z"
+        "createTime": "2026-04-01T09:00:00Z",
+        "updateTime": "2026-04-01T09:00:00Z"
       },
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev002",
         "reviewId": "rev002",
-        "reviewer": { "displayName": "Iris Park", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Iris Park",
+          "profilePhotoUrl": "",
+          "isAnonymous": false
+        },
         "starRating": "ONE",
-        "createTime": "2026-06-02T10:00:00Z",
-        "updateTime": "2026-06-02T10:00:00Z"
+        "createTime": "2026-04-02T10:00:00Z",
+        "updateTime": "2026-04-02T10:00:00Z"
       },
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev003",
         "reviewId": "rev003",
-        "reviewer": { "displayName": "Anonymous", "profilePhotoUrl": "", "isAnonymous": true },
+        "reviewer": {
+          "displayName": "Anonymous",
+          "profilePhotoUrl": "",
+          "isAnonymous": true
+        },
         "starRating": "THREE",
-        "createTime": "2026-06-03T11:00:00Z",
-        "updateTime": "2026-06-03T11:00:00Z"
+        "createTime": "2026-04-03T11:00:00Z",
+        "updateTime": "2026-04-03T11:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev005",
+        "reviewId": "rev005",
+        "reviewer": {
+          "displayName": "Karen Hill",
+          "profilePhotoUrl": "",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "createTime": "2026-04-05T14:00:00Z",
+        "updateTime": "2026-04-05T14:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev007",
+        "reviewId": "rev007",
+        "reviewer": {
+          "displayName": "Anonymous",
+          "profilePhotoUrl": "",
+          "isAnonymous": true
+        },
+        "starRating": "TWO",
+        "createTime": "2026-04-07T09:30:00Z",
+        "updateTime": "2026-04-07T09:30:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev009",
+        "reviewId": "rev009",
+        "reviewer": {
+          "displayName": "Michael Torres",
+          "profilePhotoUrl": "",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "createTime": "2026-04-09T16:00:00Z",
+        "updateTime": "2026-04-09T16:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev011",
+        "reviewId": "rev011",
+        "reviewer": {
+          "displayName": "Anonymous",
+          "profilePhotoUrl": "",
+          "isAnonymous": true
+        },
+        "starRating": "FOUR",
+        "createTime": "2026-04-11T10:30:00Z",
+        "updateTime": "2026-04-11T10:30:00Z"
       },
       {
         "name": "accounts/100000001/locations/200000001/reviews/rev004",
         "reviewId": "rev004",
-        "reviewer": { "displayName": "Jack Murray", "profilePhotoUrl": "", "isAnonymous": false },
+        "reviewer": {
+          "displayName": "Jack Murray",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev004",
+          "isAnonymous": false
+        },
         "starRating": "FOUR",
-        "comment": "This one has a comment — confirms mixed comment/no-comment works.",
-        "createTime": "2026-06-04T12:00:00Z",
-        "updateTime": "2026-06-04T12:00:00Z"
+        "comment": "Mixed comment/no-comment test: car came back sparkling. Confirmed mixed works.",
+        "createTime": "2026-04-04T12:00:00Z",
+        "updateTime": "2026-04-04T12:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev006",
+        "reviewId": "rev006",
+        "reviewer": {
+          "displayName": "Lucy Santana",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev006",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "My 2019 Tesla Model 3 looks brand new after the ceramic coating package. They even cleaned the charge port! Price was very fair. Will be a repeat customer.",
+        "createTime": "2026-04-06T11:00:00Z",
+        "updateTime": "2026-04-06T11:00:00Z",
+        "reviewReply": {
+          "comment": "Lucy, ceramic coating on Teslas is one of our specialties! Thanks for the detailed review. See you for the 6-month follow-up! 🚗",
+          "updateTime": "2026-04-06T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev008",
+        "reviewId": "rev008",
+        "reviewer": {
+          "displayName": "Nina Patel",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev008",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Booked the interior deep clean after moving cross-country. Pet hair, sand, everything — gone. They spent 4 hours and I couldn't believe the transformation. Worth every cent.",
+        "createTime": "2026-04-08T14:00:00Z",
+        "updateTime": "2026-04-08T14:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev010",
+        "reviewId": "rev010",
+        "reviewer": {
+          "displayName": "Oscar Reid",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev010",
+          "isAnonymous": false
+        },
+        "starRating": "TWO",
+        "comment": "The outside was cleaned well but they missed a big stain on the back seat that I specifically highlighted on the intake form. Had to point it out after. They fixed it but I shouldn't have had to ask.",
+        "createTime": "2026-04-10T13:30:00Z",
+        "updateTime": "2026-04-10T13:30:00Z",
+        "reviewReply": {
+          "comment": "Oscar, that's on us — the intake form should be the checklist we check off, not a secondary afterthought. Thank you for flagging it. We've updated our process.",
+          "updateTime": "2026-04-10T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev012",
+        "reviewId": "rev012",
+        "reviewer": {
+          "displayName": "Paula Evans",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev012",
+          "isAnonymous": false
+        },
+        "starRating": "FOUR",
+        "comment": "Prompt service, friendly staff, car returned on time. The tire dressing was a nice extra touch that wasn't even on the package I bought.",
+        "createTime": "2026-04-12T15:00:00Z",
+        "updateTime": "2026-04-12T15:00:00Z"
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev013",
+        "reviewId": "rev013",
+        "reviewer": {
+          "displayName": "Rob Matthews",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev013",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Third time using them. Loyalty discount program is a nice touch. The quality is consistent every single visit which is rare in detailing. My F-150 looks show-ready.",
+        "createTime": "2026-04-14T10:00:00Z",
+        "updateTime": "2026-04-14T10:00:00Z",
+        "reviewReply": {
+          "comment": "Rob, three visits and counting — thank you for your loyalty! Your F-150 deserves VIP treatment and we'll keep delivering. 🏆",
+          "updateTime": "2026-04-14T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev014",
+        "reviewId": "rev014",
+        "reviewer": {
+          "displayName": "Sara Kim",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev014",
+          "isAnonymous": false
+        },
+        "starRating": "THREE",
+        "comment": "Good job on the exterior. Interior was rushed — dust still visible on the dashboard vents. For the premium package price, I expected more attention to detail (literally).",
+        "createTime": "2026-04-16T11:30:00Z",
+        "updateTime": "2026-04-16T11:30:00Z",
+        "reviewReply": {
+          "comment": "Sara, 'attention to detail' is literally our business — you're right to call this out. We've added a vent-cleaning checklist to all premium packages.",
+          "updateTime": "2026-04-16T23:59:00Z"
+        }
+      },
+      {
+        "name": "accounts/100000001/locations/200000001/reviews/rev015",
+        "reviewId": "rev015",
+        "reviewer": {
+          "displayName": "Tim Nguyen",
+          "profilePhotoUrl": "https://lh3.googleusercontent.com/a/mock_rev015",
+          "isAnonymous": false
+        },
+        "starRating": "FIVE",
+        "comment": "Best detailer in Portland. I've tried 4 others. Nobody comes close for paint correction work. My 15-year-old Honda looks like it rolled off the showroom floor.",
+        "createTime": "2026-04-18T09:00:00Z",
+        "updateTime": "2026-04-18T09:00:00Z",
+        "reviewReply": {
+          "comment": "Tim, that's high praise considering you've tested the competition! Paint correction is our craft and we'll keep earning that trust. 🎨",
+          "updateTime": "2026-04-18T23:59:00Z"
+        }
       }
     ]
   },
-  "notification_settings": {}
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW"
+      ]
+    }
+  }
 }

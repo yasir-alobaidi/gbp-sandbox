@@ -1,17 +1,22 @@
 {
   "scenario": "many-reviews",
-  "description": "55 reviews generated automatically — forces two pagination round-trips with pageSize=50. Tests that your app follows nextPageToken correctly and doesn't stop at the first page.",
+  "description": "150 auto-generated reviews — forces 3 pagination round-trips at pageSize=50. Tests that your app exhausts nextPageToken without stopping early.",
   "_auto_generate_reviews": {
     "account_id": "100000001",
     "location_id": "200000001",
-    "count": 55
+    "count": 150
   },
-  "oauth": { "behavior": "success" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "oauth": {
+    "behavior": "success"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [
     {
       "name": "accounts/100000001",
-      "accountName": "High Volume Corp",
+      "accountName": "Pinnacle Fitness Centers",
       "type": "LOCATION_GROUP",
       "role": "OWNER",
       "permissionLevel": "OWNER_LEVEL",
@@ -23,19 +28,111 @@
     "100000001": [
       {
         "name": "locations/200000001",
-        "title": "High Volume Location",
+        "title": "Pinnacle Fitness — Downtown",
         "storefrontAddress": {
-          "addressLines": ["1 Popular Street"],
-          "locality": "Los Angeles",
+          "addressLines": [
+            "1 Market Plaza, Level B2"
+          ],
+          "locality": "San Francisco",
+          "administrativeArea": "CA",
+          "postalCode": "94105",
           "regionCode": "US"
         },
-        "phoneNumbers": { "primaryPhone": "+13235550001", "additionalPhones": [] },
-        "categories": { "primaryCategory": { "displayName": "Restaurant" }, "additionalCategories": [] },
-        "websiteUri": "https://highvolume.example.com",
-        "openInfo": { "status": "OPEN" },
-        "metadata": { "placeId": "place_hv_001", "mapsUri": "" }
+        "phoneNumbers": {
+          "primaryPhone": "+14155558080",
+          "additionalPhones": [
+            "+14155558081"
+          ]
+        },
+        "categories": {
+          "primaryCategory": {
+            "displayName": "Gym"
+          },
+          "additionalCategories": [
+            {
+              "displayName": "Personal Trainer"
+            },
+            {
+              "displayName": "Yoga Studio"
+            },
+            {
+              "displayName": "Fitness Center"
+            }
+          ]
+        },
+        "websiteUri": "https://pinnacle.example.com",
+        "regularHours": {
+          "periods": [
+            {
+              "openDay": "MONDAY",
+              "openTime": "05:00",
+              "closeDay": "MONDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "TUESDAY",
+              "openTime": "05:00",
+              "closeDay": "TUESDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "WEDNESDAY",
+              "openTime": "05:00",
+              "closeDay": "WEDNESDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "THURSDAY",
+              "openTime": "05:00",
+              "closeDay": "THURSDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "FRIDAY",
+              "openTime": "05:00",
+              "closeDay": "FRIDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "SATURDAY",
+              "openTime": "05:00",
+              "closeDay": "SATURDAY",
+              "closeTime": "23:00"
+            },
+            {
+              "openDay": "SUNDAY",
+              "openTime": "05:00",
+              "closeDay": "SUNDAY",
+              "closeTime": "23:00"
+            }
+          ]
+        },
+        "openInfo": {
+          "status": "OPEN"
+        },
+        "profile": {
+          "description": "State-of-the-art downtown fitness facility with 3 floors of equipment, 20+ weekly classes, personal training, and spa amenities."
+        },
+        "metadata": {
+          "placeId": "ChIJpinnacle001",
+          "mapsUri": "https://maps.google.com/?cid=pin001"
+        }
       }
     ]
   },
-  "notification_settings": {}
+  "notification_settings": {
+    "100000001": {
+      "name": "accounts/100000001/notificationSetting",
+      "pubsubTopic": "projects/mock-project/topics/gbp-notifications",
+      "notificationTypes": [
+        "NEW_REVIEW",
+        "UPDATED_REVIEW",
+        "NEW_QUESTION",
+        "UPDATED_QUESTION",
+        "NEW_MEDIA",
+        "UPDATED_MENU",
+        "UPDATED_LOCATION"
+      ]
+    }
+  }
 }

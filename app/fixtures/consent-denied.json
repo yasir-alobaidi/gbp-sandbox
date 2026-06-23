@@ -1,8 +1,13 @@
 {
   "scenario": "consent-denied",
-  "description": "Simulates the user clicking Cancel on Google's consent screen. GET /o/oauth2/v2/auth redirects back to redirect_uri with error=access_denied. Confirm your OAuth callback handles this without crashing.",
-  "oauth": { "behavior": "consent-denied" },
-  "error_injection": { "rate_limit": false, "zero_quota": false },
+  "description": "User clicks Cancel on Google's OAuth consent screen. GET /o/oauth2/v2/auth redirects back to redirect_uri with error=access_denied&error_description=User+denied+access. Your OAuth callback must handle this gracefully: show a clear user-facing message and NOT crash with an unhandled KeyError on 'code'. No accounts or locations are present because the token exchange never happens — accessing them is a bug in your flow.",
+  "oauth": {
+    "behavior": "consent-denied"
+  },
+  "error_injection": {
+    "rate_limit": false,
+    "zero_quota": false
+  },
   "accounts": [],
   "locations": {},
   "reviews": {},
